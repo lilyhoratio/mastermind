@@ -9,6 +9,16 @@
 
 ## Use cases to remember
 
+Logic to determine:
+
+1. All correct location - break
+2. All incorrect - keep going
+3. Else - keep going
+
+- correct location
+- correct digit only (need to account for duplicates)
+- incorrect
+
 Error handling:
 
 - [] Prevent user from inputting non-integers
@@ -17,6 +27,8 @@ Error handling:
 ## Stretch
 
 - [] Ask user for name and use as terminal prompt
+
+Original implementation to check for correct location/digit
 
 ```javascript
 // let guess = "4111";
@@ -54,3 +66,9 @@ if (integerCombo) {
   }
 }
 ```
+
+## Misc
+
+// Note: Integer combination is currently stored as a string
+// Future implementation of game could convert the string into integer types in order to
+// give user hints on numbers (e.g. guess is higher/lower than integer)

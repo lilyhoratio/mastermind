@@ -4,7 +4,7 @@ function PlayerGuessInput({ addGuess }) {
   const [guess, setGuess] = useState("");
 
   const handleChanges = e => {
-    // Remove non-digit by converting them into empty string using regex
+    // Remove non-digits by converting them into empty strings using regex
     setGuess(e.target.value.replace(/\D/, ""));
   };
 

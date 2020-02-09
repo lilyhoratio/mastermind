@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 // import * as api from "../services/api";
 
-function GuessHistory({ integerCombo, guessesList }) {
+function GuessHistory({ guessesAndFeedbackList }) {
   return (
     <div>
-      <div>CORRECT COMBO: {integerCombo}</div>
-      <div>
-        {guessesList.map(guess => (
-          <p>{guess}</p>
-        ))}
-      </div>
+      {guessesAndFeedbackList.map(guess => (
+        <div>
+          <span>{guess.guess} </span>
+          <span>{guess.feedback} </span>
+        </div>
+      ))}
     </div>
   );
 }
