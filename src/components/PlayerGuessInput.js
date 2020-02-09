@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function PlayerGuessInput({ addGuess }) {
+function PlayerGuessInput({ addGuess, isGameOver }) {
   const [guess, setGuess] = useState("");
 
   const handleChanges = e => {
@@ -17,20 +17,22 @@ function PlayerGuessInput({ addGuess }) {
   // let playerName = "Lily";
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        {/* {playerName}'s-Macbook-Pro: ~$ Enter 4 digits (0-7): */}
-        <input
-          type="text"
-          name="guess"
-          placeholder=""
-          value={guess}
-          onChange={handleChanges}
-          className="guess-input"
-        />
-      </label>
-      {/* <button>Submit</button> */}
-    </form>
+    !isGameOver && (
+      <form onSubmit={handleSubmit}>
+        <label>
+          {/* {playerName}'s-Macbook-Pro: ~$ Enter 4 digits (0-7): */}
+          <input
+            type="text"
+            name="guess"
+            placeholder=""
+            value={guess}
+            onChange={handleChanges}
+            className="guess-input"
+          />
+        </label>
+        {/* <button>Submit</button> */}
+      </form>
+    )
   );
 }
 

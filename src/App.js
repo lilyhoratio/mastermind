@@ -3,6 +3,7 @@ import * as api from "./services/api";
 import Instructions from "./components/Instructions";
 import GuessHistory from "./components/GuessHistory";
 import PlayerGuessInput from "./components/PlayerGuessInput";
+import Modal from "./components/Modal";
 
 import { integers } from "./services/data";
 
@@ -14,6 +15,8 @@ function App() {
 
   const [guessesList, setGuessesList] = useState(integers);
   const [guessesAndFeedbackList, setGuessesAndFeedbackList] = useState([]);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [isGameWon, setIsGameWon] = useState(false);
 
   // useEffect(() => {
   //   api
@@ -43,7 +46,6 @@ function App() {
       if (integerComboCopyArr.includes(guess[i])) {
         correctDigit++;
         integerComboCopyArr.splice(i, 1);
-        // console.log("spliced!", integerComboCopyArr);
         integerComboCopyArr.splice(integerComboCopyArr.indexOf(guess[i], 1));
       }
     }
@@ -58,6 +60,8 @@ function App() {
 
     if (correctDigitAndLocation === 4) {
       guessAndFeedback["feedback"] = "you win";
+      setIsGameOver(true);
+      setIsGameWon(true);
     } else if (correctDigit === 0 && correctDigitAndLocation === 0) {
       guessAndFeedback["feedback"] = "all incorrect";
     } else if (correctDigitAndLocation > 0) {
@@ -71,6 +75,9 @@ function App() {
 
     setGuessesList([...guessesList, guess]);
     setGuessesAndFeedbackList([...guessesAndFeedbackList, guessAndFeedback]);
+    if (guessesList.length - 9 === 0) {
+      setIsGameOver(true);
+    }
   };
 
   return (
@@ -79,7 +86,12 @@ function App() {
       <div>Correct combination: {integerCombo} </div>
       <div>Guesses left: {10 - guessesList.length}</div>
       <GuessHistory guessesAndFeedbackList={guessesAndFeedbackList} />
-      <PlayerGuessInput addGuess={addGuess} />
+      <PlayerGuessInput addGuess={addGuess} isGameOver={isGameOver} />
+      <Modal
+        isGameOver={isGameOver}
+        isGameWon={isGameWon}
+        integerCombo={integerCombo}
+      />
     </div>
   );
 }
