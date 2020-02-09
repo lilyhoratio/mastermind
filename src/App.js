@@ -3,6 +3,9 @@ import * as api from "./services/api";
 import Instructions from "./components/Instructions";
 import GuessHistory from "./components/GuessHistory";
 import PlayerGuessInput from "./components/PlayerGuessInput";
+
+import { integers } from "./services/data";
+
 import "./App.css";
 
 function App() {
@@ -10,7 +13,7 @@ function App() {
   // Future implementation of game could convert the string into integer types in order to
   // give user hints on numbers (e.g. guess is higher/lower than integer)
   const [integerCombo, setIntegerCombo] = useState(null);
-  const [guessesList, setGuessesList] = useState(["5134", "1553", "1224"]);
+  const [guessesList, setGuessesList] = useState(integers);
 
   useEffect(() => {
     api
@@ -26,20 +29,44 @@ function App() {
   // ADD GUESS
   const addGuess = guess => {
     setGuessesList([...guessesList, guess]);
-    console.log(guessesList);
   };
 
-  // ====
-  let guesses = 0;
-  let combination = "";
+  // if (integerCombo) {
+  //   while (guessCount < 10) {
+  //     let correctDigit = 0;
+  //     let correctDigitAndLocation = 0;
 
-  // while (guesses < 10 && combination !== integerCombo) {
-  //   guesses++;
+  //     for (let i = 0; i < guess.length; i++) {
+  //       //   console.log(guess, integerCombo);
+  //       //   console.log(guess[i], integerCombo[i]);
+  //       if (guess[i] === integerCombo[i]) {
+  //         correctDigitAndLocation++;
+  //       }
+
+  //       if (integerCombo.includes(guess[i])) {
+  //         correctDigit++;
+  //       }
+  //     }
+
+  //     correctDigit = correctDigit - correctDigitAndLocation;
+
+  //     if (correctDigitAndLocation === 4) {
+  //       // win
+  //       break;
+  //     } else if (correctDigit === 0 && correctDigitAndLocation === 0) {
+  //       console.log("All incorrect, dummy");
+  //     } else if (correctDigit !== 0) {
+  //       console.log(`Correct digit & location: ${correctDigitAndLocation}`);
+  //       console.log(`Correct digit only: ${correctDigit}`);
+  //     }
+  //     guessCount++;
+  //   }
   // }
 
   return (
     <div className="App">
       <Instructions />
+      <div>Guesses left: {10 - guessesList.length}</div>
       <GuessHistory integerCombo={integerCombo} guessesList={guessesList} />
       <PlayerGuessInput addGuess={addGuess} />
     </div>

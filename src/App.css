@@ -1,4 +1,29 @@
+body {
+  background-color: black;
+}
+
 .App {
-  text-align: center;
-  margin: 10px;
+  /* text-align: center; */
+  text-align: left;
+  margin: 20px;
+  color: #00ff00;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.guess-input {
+  color: #00ff00;
+  background-color: darkgreen;
+  border: none;
+  width: 4rem;
+  outline: none;
+  font-size: 1.4rem;
+}
+
+.guess-input::after {
+  content: "";
+  display: inline-block;
+  color: #00ff00;
+  width: 1rem;
+  height: 1rem;
+  animation: blink 1.2s step-end infinite;
 }

@@ -3,18 +3,20 @@ import React from "react";
 function Instructions() {
   return (
     <div>
-      <h1>Welcome to Mastermind</h1>
+      <span>================================================</span>
+      <h2>Mastermind</h2>
+      <span>================================================</span>
       {/* Make this collapsible */}
       <p>
-        Your goal, should you choose to accept, is to beat me, the nefarious
-        computer. I will generate a random combination of four numbers from 0
-        through 7. You will have 10 times to guess the four number combinations.
+        I will generate a random combination of four numbers from 0 through 7.
+        <br></br>You will have 10 tries to guess the correct combination.
         <br></br>
-        <br></br>
-        At the end of each guess, I will let you know whether you A. guessed a
-        correct number, B. guessed a correct number and location, or C. guessed
-        an incorrect number.
+        <br></br>At the end of each guess, I will let you know whether you:
+        <br></br>- guessed a correct number (✔)
+        <br></br>- guessed a correct number and location (○)
+        <br></br>- guessed all incorrect numbers (❌)
       </p>
+      <p>---------------------------------------------------</p>
     </div>
   );
 }
