@@ -3,9 +3,13 @@ import React from "react";
 function Instructions() {
   return (
     <div>
-      <span>================================================</span>
+      <span>
+        ================================================================================
+      </span>
       <h2>Mastermind</h2>
-      <span>================================================</span>
+      <span>
+        ================================================================================
+      </span>
       {/* Make this collapsible */}
       <p>
         I will generate a random combination of four numbers from 0 through 7.
@@ -16,7 +20,9 @@ function Instructions() {
         <br></br>- guessed a correct number and location (○)
         <br></br>- guessed all incorrect numbers (❌)
       </p>
-      <p>---------------------------------------------------</p>
+      <p>
+        -------------------------------------------------------------------------------
+      </p>
     </div>
   );
 }
