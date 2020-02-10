@@ -24,51 +24,11 @@ Features
 - Game over modals
   - If won, show "you win"
   - If lost, show "you suck"
+- [] Ask user for name and use as terminal prompt
 
 V2. Future builds
 
 ## Stretch
-
-- [] Ask user for name and use as terminal prompt
-
-Original implementation to check for correct location/digit
-
-```javascript
-// let guess = "4111";
-// let guessCount = 0;
-
-if (integerCombo) {
-  while (guessCount < 10) {
-    let correctDigit = 0;
-    let correctDigitAndLocation = 0;
-
-    for (let i = 0; i < guess.length; i++) {
-      //   console.log(guess, integerCombo);
-      //   console.log(guess[i], integerCombo[i]);
-      if (guess[i] === integerCombo[i]) {
-        correctDigitAndLocation++;
-      }
-
-      if (integerCombo.includes(guess[i])) {
-        correctDigit++;
-      }
-    }
-
-    correctDigit = correctDigit - correctDigitAndLocation;
-
-    if (correctDigitAndLocation === 4) {
-      // win
-      break;
-    } else if (correctDigit === 0 && correctDigitAndLocation === 0) {
-      console.log("All incorrect, dummy");
-    } else if (correctDigit !== 0) {
-      console.log(`Correct digit & location: ${correctDigitAndLocation}`);
-      console.log(`Correct digit only: ${correctDigit}`);
-    }
-    guessCount++;
-  }
-}
-```
 
 ## Misc
 

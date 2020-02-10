@@ -13,7 +13,6 @@ function App() {
   const [integerCombo, setIntegerCombo] = useState("5124");
   let integerComboCopyArr = integerCombo.slice().split("");
 
-  const [guessesList, setGuessesList] = useState(integers);
   const [guessesAndFeedbackList, setGuessesAndFeedbackList] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
@@ -65,17 +64,16 @@ function App() {
     } else if (correctDigit === 0 && correctDigitAndLocation === 0) {
       guessAndFeedback["feedback"] = "all incorrect";
     } else if (correctDigitAndLocation > 0) {
-      guessAndFeedback["feedback"] = "correct location";
+      guessAndFeedback["feedback"] = "correct digit/location";
     } else {
-      guessAndFeedback["feedback"] = "correct digit";
+      guessAndFeedback["feedback"] = "correct digit only";
     }
 
     console.log(guessAndFeedback);
     // end helper function
 
-    setGuessesList([...guessesList, guess]);
     setGuessesAndFeedbackList([...guessesAndFeedbackList, guessAndFeedback]);
-    if (guessesList.length - 9 === 0) {
+    if (guessesAndFeedbackList.length - 9 === 0) {
       setIsGameOver(true);
     }
   };
@@ -84,7 +82,7 @@ function App() {
     <div className="App">
       <Instructions />
       <div>Correct combination: {integerCombo} </div>
-      <div>Guesses left: {10 - guessesList.length}</div>
+      <div>Guesses left: {10 - guessesAndFeedbackList.length}</div>
       <GuessHistory guessesAndFeedbackList={guessesAndFeedbackList} />
       <PlayerGuessInput addGuess={addGuess} isGameOver={isGameOver} />
       <Modal
