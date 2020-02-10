@@ -1,6 +1,15 @@
 # Mastermind Game
 
-Deployed at <url>
+Deployed at [mastermind-lily.netlify.com](www.mastermind-lily.netlify.com)
+
+## Table of Contents
+
+- [Steps to run locally](#steps-to-run-locally)
+- [Code & Refactoring Highlights](#code-&-refactoring-highlights)
+- [Features](#features)
+- [Testing & Use Cases](#testing-&-use-cases)
+- [Future Improvemets](#future-improvements)
+- [Tech stack](#tech-stack)
 
 ## Steps to run locally
 
@@ -9,14 +18,11 @@ Deployed at <url>
 3. `yarn` to install dependencies
 4. `yarn start` to launch React app
 
-## Code Highlights
+## Code & Refactoring Highlights
 
-Because duplicate digits are allowed in the code and guess, the algorithm to get the correct counts for locations and/or digits guessed correctly is a bit trickier.
+### Bug fix in algorithm to count exact vs. fuzzy matches
 
-### V1 implementation - did not account for potential duplicates in guess
-
-The counts are not fully correct because the user could guess a duplicate integer. For example,
-if the number was 5124, and the user guessed, 5555, the computer would say say 1 correct location, 3 correct digits (correct answer is 1 correct location, 0 correct digits)
+My first implementation had a bug in counting the exact match vs. fuzzy match of digits in the guess. Because the user could enter a code with duplicate digits, the count of fuzzy matches was inflated. For example, if the number was 5124, and the user guessed, 5555, the computer indicated 1 exact match and 3 fuzzy matches.
 
 ```javascript
 const getComputerFeedback = guess => {
@@ -55,10 +61,7 @@ const getComputerFeedback = guess => {
 };
 ```
 
-### V2
-
-- Loop through to get the correct location count first. Add one to black peg. Mutate the guess & answer to nullify the matching elements.
-- Then, loop through to check if guess[i] is in code && guess[i] != code[i]. Add one to white peg. code[code.index(guess[i])] += "PEG!"
+Fixed the logic and updated variable names to account for potential future implementation where the code is not integers, but other values (colors, aninals, etc):
 
 ```javascript
 const getComputerFeedback = guess => {
@@ -104,7 +107,7 @@ const getComputerFeedback = guess => {
 };
 ```
 
-### Refactor for DRY code
+Refactored into:
 
 ```js
 const getComputerFeedback = guess => {
@@ -144,24 +147,7 @@ const getComputerFeedback = guess => {
 };
 ```
 
-## Use cases to remember
-
-V1. Logic to determine - PESKY DUPLICATES
-
-1. All correct location - break
-2. All incorrect - keep going
-3. Else - keep going
-
 ## Features
-
-### Edge-cases
-
-- [x] Prevent user from inputting non-integers
-- [] Prevent user from inputting more than 4 digits
-- [x] Prevent user from accessing input form after guessing correct combination
-- [x] Prevent user from accessing input form after 10 tries
-
-### Misc
 
 - [] Conditional rendering of "Game Over" modals (won game vs. lost game)
 - [] Save user's first name in localStorage - use as terminal prompt or modal message
@@ -169,15 +155,16 @@ V1. Logic to determine - PESKY DUPLICATES
 - [] computer gives correct count of digits matched
 - [] unit tests
 
-V2. Future builds
+## Testing & Use-cases
 
-## Misc
+- [x] Prevent user from inputting non-integers
+- [] Prevent user from inputting more than 4 digits
+- [x] Prevent user from accessing input form after guessing correct combination
+- [x] Prevent user from accessing input form after 10 tries
 
-Note: Integer combination is currently stored as a string
-Future implementation of game could convert the string into integer types in order to
-give user hints on numbers (e.g. guess is higher/lower than integer)
+## Future Improvements
 
-## Built Using
+## Tech Stack
 
 - React
 - SASS
