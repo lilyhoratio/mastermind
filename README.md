@@ -60,6 +60,90 @@ const getComputerFeedback = guess => {
 - Loop through to get the correct location count first. Add one to black peg. Mutate the guess & answer to nullify the matching elements.
 - Then, loop through to check if guess[i] is in code && guess[i] != code[i]. Add one to white peg. code[code.index(guess[i])] += "PEG!"
 
+```javascript
+const getComputerFeedback = guess => {
+  let guessAndFeedback = { guess: guess };
+  let fuzzyMatch = 0;
+  let exactMatch = 0;
+
+  let intGuess = convertStringToIntArray(guess);
+  let codeCopy = [...code];
+
+  for (let i = 0; i < intGuess.length; i++) {
+    if (intGuess[i] === codeCopy[i]) {
+      exactMatch++;
+      intGuess[i] = null;
+      codeCopy[i] = null;
+    }
+  }
+
+  for (let i = 0; i < intGuess.length; i++) {
+    if (codeCopy.includes(intGuess[i]) && intGuess[i] !== codeCopy[i]) {
+      fuzzyMatch++;
+      codeCopy[codeCopy.indexOf(intGuess[i])] = null;
+    }
+  }
+
+  if (exactMatch === 4) {
+    guessAndFeedback["feedback"] = "you win";
+    setIsGameOver(true);
+    setIsGameWon(true);
+  } else if (fuzzyMatch === 0 && exactMatch === 0) {
+    guessAndFeedback["feedback"] = "all incorrect";
+  } else if (exactMatch > 0) {
+    guessAndFeedback[
+      "feedback"
+    ] = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
+  } else {
+    guessAndFeedback[
+      "feedback"
+    ] = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
+  }
+
+  return guessAndFeedback;
+};
+```
+
+### Refactor for DRY code
+
+```js
+const getComputerFeedback = guess => {
+  let feedback = "";
+  let fuzzyMatch = 0;
+  let exactMatch = 0;
+
+  let intGuess = convertStringToIntArray(guess);
+  let codeCopy = [...code];
+
+  for (let i = 0; i < intGuess.length; i++) {
+    if (intGuess[i] === codeCopy[i]) {
+      exactMatch++;
+      intGuess[i] = null;
+      codeCopy[i] = null;
+    }
+  }
+
+  for (let i = 0; i < intGuess.length; i++) {
+    if (codeCopy.includes(intGuess[i]) && intGuess[i] !== codeCopy[i]) {
+      fuzzyMatch++;
+      codeCopy[codeCopy.indexOf(intGuess[i])] = null;
+    }
+  }
+
+  if (exactMatch === 4) {
+    feedback = "you win";
+    setIsGameOver(true);
+    setIsGameWon(true);
+  } else if (fuzzyMatch === 0 && exactMatch === 0) {
+    feedback = "all incorrect";
+  } else {
+    feedback = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
+  }
+
+  return { guess, feedback };
+};
+```
+
 ## Use cases to remember
 
 V1. Logic to determine - PESKY DUPLICATES

@@ -82,19 +82,19 @@ $windows-grey: #d8d5cb;
   align-items: center;
 
   .guess-and-feedback {
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
 
     .guess {
-      width: 40%;
+      width: 20%;
       text-align: left;
     }
 
     .feedback {
-      width: 60%;
+      width: 80%;
       text-align: left;
     }
   }

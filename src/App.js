@@ -11,13 +11,14 @@ import Modal from "./components/Modal";
 import "./App.scss";
 
 function App() {
+  // ======= State variables ======== //
   const [code, setCode] = useState([5, 1, 2, 4]);
-
   const [guessesAndFeedbackList, setGuessesAndFeedbackList] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
   const [showCode, setShowCode] = useState(false);
 
+  // ======= API call to generate random integer combo ========= //
   // useEffect(() => {
   //   api
   //     .getRandomIntegers()
@@ -36,7 +37,7 @@ function App() {
   };
 
   const getComputerFeedback = guess => {
-    let guessAndFeedback = { guess: guess };
+    let feedback = "";
     let fuzzyMatch = 0;
     let exactMatch = 0;
 
@@ -59,22 +60,16 @@ function App() {
     }
 
     if (exactMatch === 4) {
-      guessAndFeedback["feedback"] = "you win";
+      feedback = "you win";
       setIsGameOver(true);
       setIsGameWon(true);
     } else if (fuzzyMatch === 0 && exactMatch === 0) {
-      guessAndFeedback["feedback"] = "all incorrect";
-    } else if (exactMatch > 0) {
-      guessAndFeedback[
-        "feedback"
-      ] = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
+      feedback = "all incorrect";
     } else {
-      guessAndFeedback[
-        "feedback"
-      ] = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
+      feedback = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
     }
 
-    return guessAndFeedback;
+    return { guess, feedback };
   };
 
   const addGuess = guess => {
