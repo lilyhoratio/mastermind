@@ -14,13 +14,14 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
     setGuess("");
   };
 
-  // let playerName = "Lily";
+  let playerName = "Lily";
 
   return (
     !isGameOver && (
       <form onSubmit={handleSubmit}>
         <label>
           {/* {playerName}'s-Macbook-Pro: ~$ Enter 4 digits (0-7): */}
+          Enter 4 digits (0-7):
           <input
             type="text"
             name="guess"

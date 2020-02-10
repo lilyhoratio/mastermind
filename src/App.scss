@@ -1,0 +1,89 @@
+body {
+  background-color: black;
+}
+
+$terminal-green: #00ff00;
+
+.App {
+  text-align: center;
+  margin: 0px auto;
+  width: 60%;
+  color: #00ff00;
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// Wrapper
+.instructions-and-stats {
+  display: flex;
+  text-align: left;
+  border-bottom: 2px dotted $terminal-green;
+  margin-bottom: 20px;
+  .instructions {
+    width: 60%;
+    padding-right: 20px;
+  }
+  .game-stats {
+    padding-left: 20px;
+    width: 40%;
+    border-left: 1px dotted $terminal-green;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+    .guesses-remaining {
+      font-size: 2rem;
+    }
+  }
+}
+
+// GuessHistory
+
+.guess-history-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .guess-and-feedback {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+
+    .guess {
+      width: 40%;
+      text-align: left;
+    }
+
+    .feedback {
+      width: 60%;
+      text-align: left;
+    }
+  }
+}
+
+// PlayerGuessInput
+.guess-input {
+  color: $terminal-green;
+  background-color: darkgreen;
+  border: none;
+  width: 4rem;
+  outline: none;
+  font-size: 1.4rem;
+  margin: 0 10px 30px 0;
+}
+
+// Modal.js
+.modal {
+  position: fixed;
+  width: 40%;
+  height: auto;
+  color: black;
+  background: #d8d5cb;
+  transition: 1s ease-out;
+}

@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 
 function GuessHistory({ guessesAndFeedbackList }) {
   return (
-    <div>
+    <div className="guess-history-container">
       {guessesAndFeedbackList.map(guess => (
-        <div>
-          <span>{guess.guess} </span>
-          <span>{guess.feedback} </span>
+        <div className="guess-and-feedback">
+          <span className="guess">{guess.guess} </span>
+          <span className="feedback">{guess.feedback} </span>
         </div>
       ))}
     </div>
