@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import * as api from "../services/api";
 
 function Modal({ isGameOver, isGameWon, integerCombo }) {
   if (!isGameOver) return null;
@@ -14,10 +15,15 @@ function Modal({ isGameOver, isGameWon, integerCombo }) {
       ) : (
         <div className="modal-content">
           <p>You lose! The correct number combination was {integerCombo}.</p>
-          <div>( ͡° ʖ̯ ͡°) ┏༼ ◉╭╮◉༽┓ </div>
+          <div>( ͡° ʖ̯ ͡°) ┏༼ ◉╭╮◉༽┓ ( ⚈̥̥̥̥̥́⌢⚈̥̥̥̥̥̀) </div>
         </div>
       )}
-      <div className="generate-number-button">Generate new random number</div>
+      <div
+        className="generate-number-button"
+        onClick={() => window.location.reload(false)}
+      >
+        Generate new random number
+      </div>
     </div>
   );
 }
