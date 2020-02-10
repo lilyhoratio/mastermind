@@ -1,13 +1,8 @@
 import React from "react";
 
-function GameStats({
-  integerCombo,
-  guessesAndFeedbackList,
-  showIntegerCombo,
-  setShowIntegerCombo
-}) {
+function GameStats({ code, guessesAndFeedbackList, showCode, setShowCode }) {
   const handleClick = () => {
-    setShowIntegerCombo(!showIntegerCombo);
+    setShowCode(!showCode);
   };
 
   let guessesRemaining = 10 - guessesAndFeedbackList.length;
@@ -15,15 +10,10 @@ function GameStats({
 
   return (
     <div className="game-stats">
-      <div
-        className={`integer-combo${showIntegerCombo ? "-show" : "-hide"}`}
-        onClick={handleClick}
-      >
-        {showIntegerCombo ? integerCombo : "Click to view answer"}
+      <div className="integer-combo" onClick={handleClick}>
+        {showCode ? code : "Click to view code"}
       </div>
-      <div className="guesses-remaining">
-        Guesses remaining: {guessesRemaining}
-      </div>
+      <div className="guesses-remaining">{guessesRemaining} guesses left</div>
       <div>
         {heartsRemaining.map(heart => (
           <span>{heart}</span>

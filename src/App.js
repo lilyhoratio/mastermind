@@ -11,13 +11,12 @@ import Modal from "./components/Modal";
 import "./App.scss";
 
 function App() {
-  const [integerCombo, setIntegerCombo] = useState("5124");
-  let integerComboCopyArr = integerCombo.slice().split("");
+  const [code, setCode] = useState([5, 1, 2, 4]);
 
   const [guessesAndFeedbackList, setGuessesAndFeedbackList] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
-  const [showIntegerCombo, setShowIntegerCombo] = useState(false);
+  const [showCode, setShowCode] = useState(false);
 
   // useEffect(() => {
   //   api
@@ -25,41 +24,54 @@ function App() {
   //     .then(res => {
   //       let rawIntegers = res.data;
   //       let cleanedIntegers = rawIntegers.split("\n").join("");
-  //       setIntegerCombo(cleanedIntegers);
+  //       setCode(cleanedIntegers);
 
   //       // console.log(createFrequencyCounter(cleanedIntegers));
   //     })
   //     .catch(err => console.log(err));
   // }, []);
 
+  const convertStringToIntArray = stringInt => {
+    return stringInt.split("").map(stringInt => parseInt(stringInt, 10));
+  };
+
   const getComputerFeedback = guess => {
     let guessAndFeedback = { guess: guess };
-    let correctDigitOnly = 0;
-    let correctLocation = 0;
+    let fuzzyMatch = 0;
+    let exactMatch = 0;
 
-    for (let i = 0; i < guess.length; i++) {
-      if (guess[i] === integerCombo[i]) {
-        correctLocation++;
-      }
-      if (integerComboCopyArr.includes(guess[i])) {
-        correctDigitOnly++;
-        // integerComboCopyArr.splice(i, 1);
-        integerComboCopyArr.splice(integerComboCopyArr.indexOf(guess[i], 1));
+    let intGuess = convertStringToIntArray(guess);
+    let codeCopy = [...code];
+
+    for (let i = 0; i < intGuess.length; i++) {
+      if (intGuess[i] === codeCopy[i]) {
+        exactMatch++;
+        intGuess[i] = null;
+        codeCopy[i] = null;
       }
     }
 
-    correctDigitOnly = correctDigitOnly - correctLocation;
+    for (let i = 0; i < intGuess.length; i++) {
+      if (codeCopy.includes(intGuess[i]) && intGuess[i] !== codeCopy[i]) {
+        fuzzyMatch++;
+        codeCopy[codeCopy.indexOf(intGuess[i])] = null;
+      }
+    }
 
-    if (correctLocation === 4) {
+    if (exactMatch === 4) {
       guessAndFeedback["feedback"] = "you win";
       setIsGameOver(true);
       setIsGameWon(true);
-    } else if (correctDigitOnly === 0 && correctLocation === 0) {
+    } else if (fuzzyMatch === 0 && exactMatch === 0) {
       guessAndFeedback["feedback"] = "all incorrect";
-    } else if (correctLocation > 0) {
-      guessAndFeedback["feedback"] = "correct location";
+    } else if (exactMatch > 0) {
+      guessAndFeedback[
+        "feedback"
+      ] = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
     } else {
-      guessAndFeedback["feedback"] = "correct digit only";
+      guessAndFeedback[
+        "feedback"
+      ] = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
     }
 
     return guessAndFeedback;
@@ -80,19 +92,15 @@ function App() {
       <div className="instructions-and-stats">
         <Instructions />
         <GameStats
-          integerCombo={integerCombo}
+          code={code}
           guessesAndFeedbackList={guessesAndFeedbackList}
-          showIntegerCombo={showIntegerCombo}
-          setShowIntegerCombo={setShowIntegerCombo}
+          showCode={showCode}
+          setShowCode={setShowCode}
         />
       </div>
       <PlayerGuessInput addGuess={addGuess} isGameOver={isGameOver} />
       <GuessHistory guessesAndFeedbackList={guessesAndFeedbackList} />
-      <Modal
-        isGameOver={isGameOver}
-        isGameWon={isGameWon}
-        integerCombo={integerCombo}
-      />
+      <Modal isGameOver={isGameOver} isGameWon={isGameWon} code={code} />
     </div>
   );
 }

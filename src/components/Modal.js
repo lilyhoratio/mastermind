@@ -1,6 +1,6 @@
 import React from "react";
 
-function Modal({ isGameOver, isGameWon, integerCombo }) {
+function Modal({ isGameOver, isGameWon, code }) {
   if (!isGameOver) return null;
 
   return (
@@ -8,12 +8,12 @@ function Modal({ isGameOver, isGameWon, integerCombo }) {
       <p className="modal-header">Message</p>
       {isGameWon ? (
         <div className="modal-content">
-          <p>You win! You guessed {integerCombo}! </p>
+          <p>You win! You guessed {code}! </p>
           <div>ヽ༼ຈل͜ຈ༽ﾉ ━━☆ﾟ. *</div>
         </div>
       ) : (
         <div className="modal-content">
-          <p>You lose! The correct number combination was {integerCombo}.</p>
+          <p>You lose! The correct number combination was {code}.</p>
           <div>( ͡° ʖ̯ ͡°) ┏༼ ◉╭╮◉༽┓ ( ⚈̥̥̥̥̥́⌢⚈̥̥̥̥̥̀) </div>
         </div>
       )}

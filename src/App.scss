@@ -52,6 +52,7 @@ $windows-grey: #d8d5cb;
 .instructions-and-stats {
   display: flex;
   text-align: left;
+  border-top: 2px dotted $terminal-green;
   border-bottom: 2px dotted $terminal-green;
   margin-bottom: 20px;
   .instructions {

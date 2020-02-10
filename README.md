@@ -11,6 +11,55 @@ Deployed at <url>
 
 ## Code Highlights
 
+Because duplicate digits are allowed in the code and guess, the algorithm to get the correct counts for locations and/or digits guessed correctly is a bit trickier.
+
+### V1 implementation - did not account for potential duplicates in guess
+
+The counts are not fully correct because the user could guess a duplicate integer. For example,
+if the number was 5124, and the user guessed, 5555, the computer would say say 1 correct location, 3 correct digits (correct answer is 1 correct location, 0 correct digits)
+
+```javascript
+const getComputerFeedback = guess => {
+  let guessAndFeedback = { guess: guess };
+  let correctDigitOnly = 0;
+  let correctLocation = 0;
+
+  for (let i = 0; i < guess.length; i++) {
+    if (guess[i] === integerCombo[i]) {
+      correctLocation++;
+    }
+    if (integerComboCopyArr.includes(guess[i])) {
+      correctDigitOnly++;
+    }
+  }
+
+  correctDigitOnly = correctDigitOnly - correctLocation;
+
+  if (correctLocation === 4) {
+    guessAndFeedback["feedback"] = "you win";
+    setIsGameOver(true);
+    setIsGameWon(true);
+  } else if (correctDigitOnly === 0 && correctLocation === 0) {
+    guessAndFeedback["feedback"] = "all incorrect";
+  } else if (correctLocation > 0) {
+    guessAndFeedback[
+      "feedback"
+    ] = `correct location: ${correctLocation}, correct digit: ${correctDigitOnly}`;
+  } else {
+    guessAndFeedback[
+      "feedback"
+    ] = `correct location: ${correctLocation}, correct digit: ${correctDigitOnly}`;
+  }
+
+  return guessAndFeedback;
+};
+```
+
+### V2
+
+- Loop through to get the correct location count first. Add one to black peg. Mutate the guess & answer to nullify the matching elements.
+- Then, loop through to check if guess[i] is in code && guess[i] != code[i]. Add one to white peg. code[code.index(guess[i])] += "PEG!"
+
 ## Use cases to remember
 
 V1. Logic to determine - PESKY DUPLICATES
