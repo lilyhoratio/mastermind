@@ -4,25 +4,20 @@ function Modal({ isGameOver, isGameWon, integerCombo }) {
   if (!isGameOver) return null;
 
   return (
-    <div
-      className="modal"
-      style={{
-        transform: isGameOver ? "translateY(0vh)" : "translateY(-200vh)",
-        opacity: isGameOver ? "1" : "0"
-      }}
-    >
+    <div className="modal">
+      <p className="modal-header">Message</p>
       {isGameWon ? (
-        <div>
+        <div className="modal-content">
           <p>You win! You guessed {integerCombo}! </p>
-          <div>ヽ༼ຈل͜ຈ༽ﾉ</div>
+          <div>ヽ༼ຈل͜ຈ༽ﾉ ━━☆ﾟ. *</div>
         </div>
       ) : (
-        <div>
+        <div className="modal-content">
           <p>You lose! The correct number combination was {integerCombo}.</p>
-          <div>( ͡° ʖ̯ ͡°)</div>
+          <div>( ͡° ʖ̯ ͡°) ┏༼ ◉╭╮◉༽┓ </div>
         </div>
       )}
-      <p>Generate new random number</p>
+      <div className="generate-number-button">Generate new random number</div>
     </div>
   );
 }

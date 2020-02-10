@@ -1,4 +1,4 @@
-### LinkedIn REACH - Mastermind Challenge
+### Mastermind Challenge
 
 ## Steps to run locally
 
@@ -15,16 +15,21 @@ V1. Logic to determine - PESKY DUPLICATES
 2. All incorrect - keep going
 3. Else - keep going
 
-Features
+## Features
+
+### Use-cases
 
 - [x] Prevent user from inputting non-integers
-- [] Prevent user from inputting < or > 4 digits
-- [x] Prevent user from inputting numbers after guessing correctly
-- [x] Prevent user from inputting numbers after 10 tries
-- Game over modals
-  - If won, show "you win"
-  - If lost, show "you suck"
-- [] Ask user for name and use as terminal prompt
+- [] Prevent user from inputting more than 4 digits
+- [x] Prevent user from inputting numbers in form after guessing correct combination
+- [x] Prevent user from inputting numbers in form after 10 tries
+- [] Conditional rendering of "Game Over" modals (won game vs. lost game)
+- [] Save user's first name in localStorage - use as terminal prompt or modal message
+
+### Guess History & Feedback
+
+- [] computer gives count of locations matched
+- [] computer gives correct count of digits matched
 
 V2. Future builds
 

@@ -3,6 +3,7 @@ body {
 }
 
 $terminal-green: #00ff00;
+$windows-grey: #d8d5cb;
 
 .App {
   text-align: center;
@@ -80,10 +81,33 @@ $terminal-green: #00ff00;
 
 // Modal.js
 .modal {
+  border: 2px solid $windows-grey;
   position: fixed;
   width: 40%;
   height: auto;
   color: black;
-  background: #d8d5cb;
+  background: $windows-grey;
   transition: 1s ease-out;
+  padding-bottom: 10px;
+
+  .modal-header {
+    padding: 5px;
+    text-align: left;
+    background-color: #1e03a1;
+    color: $windows-grey;
+    margin: 0;
+  }
+
+  .modal-content {
+    padding: 10px;
+  }
+
+  .generate-number-button {
+    border: 1px solid black;
+    padding: 4px;
+    margin-bottom: 10px;
+    display: inline-block;
+    box-shadow: 3px 2px 2px grey;
+    cursor: pointer;
+  }
 }
