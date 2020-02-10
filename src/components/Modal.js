@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import * as api from "../services/api";
+import React from "react";
 
 function Modal({ isGameOver, isGameWon, integerCombo }) {
   if (!isGameOver) return null;

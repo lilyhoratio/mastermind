@@ -5,8 +5,8 @@ import PlayerGuessInput from "./components/PlayerGuessInput";
 import GameStats from "./components/GameStats";
 import Modal from "./components/Modal";
 
-import { integers } from "./services/data";
-import * as api from "./services/api";
+// import { integers } from "./services/data";
+// import * as api from "./services/api";
 
 import "./App.scss";
 
@@ -17,6 +17,7 @@ function App() {
   const [guessesAndFeedbackList, setGuessesAndFeedbackList] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
+  const [showIntegerCombo, setShowIntegerCombo] = useState(false);
 
   // useEffect(() => {
   //   api
@@ -68,19 +69,21 @@ function App() {
     const guessAndFeedback = getComputerFeedback(guess);
 
     setGuessesAndFeedbackList([...guessesAndFeedbackList, guessAndFeedback]);
-    if (guessesAndFeedbackList.length - 9 === 0) {
+    if (guessesAndFeedbackList.length === 9) {
       setIsGameOver(true);
     }
   };
 
   return (
     <div className="App">
-      <h1>Mastermind</h1>
+      <h1 className="typewriter">Mastermind</h1>
       <div className="instructions-and-stats">
         <Instructions />
         <GameStats
           integerCombo={integerCombo}
           guessesAndFeedbackList={guessesAndFeedbackList}
+          showIntegerCombo={showIntegerCombo}
+          setShowIntegerCombo={setShowIntegerCombo}
         />
       </div>
       <PlayerGuessInput addGuess={addGuess} isGameOver={isGameOver} />
