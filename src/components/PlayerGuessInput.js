@@ -52,7 +52,7 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
           className={`ghost-container${appear ? "" : "-hidden"}`}
           onAnimationEnd={() => setAppear(false)}
         >
-          {/* <img id="ghost" src={Ghost} alt="ghost" /> */}
+          <img id="ghost" src={Ghost} alt="ghost" />
           <span id="ghost-rawr">{ghostText}</span>
         </div>
       </>
