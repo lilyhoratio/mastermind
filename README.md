@@ -22,7 +22,7 @@ Deployed at [mastermind-lily.netlify.com](www.mastermind-lily.netlify.com)
 
 ### Bug fix in algorithm to count exact vs. fuzzy matches
 
-My first implementation had a bug in counting the exact match vs. fuzzy match of digits in the guess. Because the user could enter a code with duplicate digits, the count of fuzzy matches was inflated. For example, if the number was 5124, and the user guessed, 5555, the computer indicated 1 exact match and 3 fuzzy matches.
+My first implementation had a bug in counting the exact match vs. fuzzy match of digits in the guess. Because the user could enter a code with duplicate digits, the count of fuzzy matches was inflated. For example, if the number was 5124, and the user guessed, 5555, the computer incorrected indicated 1 exact match and 3 fuzzy matches (should be 0 fuzzy matches).
 
 ```javascript
 const getComputerFeedback = guess => {
@@ -47,10 +47,6 @@ const getComputerFeedback = guess => {
     setIsGameWon(true);
   } else if (correctDigitOnly === 0 && correctLocation === 0) {
     guessAndFeedback["feedback"] = "all incorrect";
-  } else if (correctLocation > 0) {
-    guessAndFeedback[
-      "feedback"
-    ] = `correct location: ${correctLocation}, correct digit: ${correctDigitOnly}`;
   } else {
     guessAndFeedback[
       "feedback"
@@ -61,7 +57,7 @@ const getComputerFeedback = guess => {
 };
 ```
 
-Fixed the logic and updated variable names to account for potential future implementation where the code is not integers, but other values (colors, aninals, etc):
+I fixed the logic to account for duplicates. And, I updated variable names to account for potential future implementations where the code to break is not a set of integers, but other values (colors, aninals, etc):
 
 ```javascript
 const getComputerFeedback = guess => {
@@ -93,10 +89,6 @@ const getComputerFeedback = guess => {
     setIsGameWon(true);
   } else if (fuzzyMatch === 0 && exactMatch === 0) {
     guessAndFeedback["feedback"] = "all incorrect";
-  } else if (exactMatch > 0) {
-    guessAndFeedback[
-      "feedback"
-    ] = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
   } else {
     guessAndFeedback[
       "feedback"
@@ -112,26 +104,8 @@ Refactored into:
 ```js
 const getComputerFeedback = guess => {
   let feedback = "";
-  let fuzzyMatch = 0;
-  let exactMatch = 0;
 
-  let intGuess = convertStringToIntArray(guess);
-  let codeCopy = [...code];
-
-  for (let i = 0; i < intGuess.length; i++) {
-    if (intGuess[i] === codeCopy[i]) {
-      exactMatch++;
-      intGuess[i] = null;
-      codeCopy[i] = null;
-    }
-  }
-
-  for (let i = 0; i < intGuess.length; i++) {
-    if (codeCopy.includes(intGuess[i]) && intGuess[i] !== codeCopy[i]) {
-      fuzzyMatch++;
-      codeCopy[codeCopy.indexOf(intGuess[i])] = null;
-    }
-  }
+  // ===== hidden ===== //
 
   if (exactMatch === 4) {
     feedback = "you win";
@@ -140,20 +114,32 @@ const getComputerFeedback = guess => {
   } else if (fuzzyMatch === 0 && exactMatch === 0) {
     feedback = "all incorrect";
   } else {
-    feedback = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
+    feedback = `exact match === ${exactMatch} && fuzzy match === ${fuzzyMatch}`;
   }
 
   return { guess, feedback };
 };
 ```
 
+### Helper functions
+
+In src/services/helpers.js - I created the following helper function to convert both the Random Integer API request result and user input from raw strings into an array of integers.
+
+```js
+const convertStringToIntArray = (stringInt, separator = "") => {
+  return stringInt.split(separator).map(stringInt => parseInt(stringInt, 10));
+};
+```
+
 ## Features
 
-- [] Conditional rendering of "Game Over" modals (won game vs. lost game)
-- [] Save user's first name in localStorage - use as terminal prompt or modal message
-- [] computer gives count of locations matched
-- [] computer gives correct count of digits matched
+- [x] Ability to toggle code for easier user testing
+- [] Ability to restart game with new random code
+- [x] Conditional rendering of "Game Over" modals (won game vs. lost game)
+- [x] computer gives count of exact vs. fuzzy matches
 - [] unit tests
+- [] Save user's first name in localStorage - use as terminal prompt or modal message
+- [] User is alerted if incorrect input is made (e.g. non-digits, fewer than or greater than 4 digits)
 
 ## Testing & Use-cases
 

@@ -1,41 +1,42 @@
 import React, { useState, useEffect } from "react";
+// ======= Components
 import Instructions from "./components/Instructions";
 import GuessHistory from "./components/GuessHistory";
 import PlayerGuessInput from "./components/PlayerGuessInput";
 import GameStats from "./components/GameStats";
 import Modal from "./components/Modal";
 
+// ======= Helpers
+import { convertStringToIntArray } from "./services/helpers";
+import * as api from "./services/api";
+
+// ======= Dummy data as backup if API changes
 // import { integers } from "./services/data";
-// import * as api from "./services/api";
 
 import "./App.scss";
 
 function App() {
-  // ======= State variables ======== //
+  // ======= State variables
   const [code, setCode] = useState([5, 1, 2, 4]);
   const [guessesAndFeedbackList, setGuessesAndFeedbackList] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
   const [showCode, setShowCode] = useState(false);
 
-  // ======= API call to generate random integer combo ========= //
-  // useEffect(() => {
-  //   api
-  //     .getRandomIntegers()
-  //     .then(res => {
-  //       let rawIntegers = res.data;
-  //       let cleanedIntegers = rawIntegers.split("\n").join("");
-  //       setCode(cleanedIntegers);
+  // ======= API call to generate random integer combo
+  useEffect(() => {
+    api
+      .getRandomIntegers()
+      .then(res => {
+        let rawIntegers = res.data;
+        let cleanedIntegers = convertStringToIntArray(rawIntegers, "\n");
+        cleanedIntegers.pop(); // remove last element due to extra \n separator
+        setCode(cleanedIntegers);
+      })
+      .catch(err => console.log(err));
+  }, []);
 
-  //       // console.log(createFrequencyCounter(cleanedIntegers));
-  //     })
-  //     .catch(err => console.log(err));
-  // }, []);
-
-  const convertStringToIntArray = stringInt => {
-    return stringInt.split("").map(stringInt => parseInt(stringInt, 10));
-  };
-
+  // ======= Algorithm to determine computer's feedback based on user's input
   const getComputerFeedback = guess => {
     let feedback = "";
     let fuzzyMatch = 0;
@@ -66,16 +67,20 @@ function App() {
     } else if (fuzzyMatch === 0 && exactMatch === 0) {
       feedback = "all incorrect";
     } else {
-      feedback = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
+      feedback = `exact match === ${exactMatch} && fuzzy match === ${fuzzyMatch}`;
     }
 
     return { guess, feedback };
   };
 
+  // ======= Add user's input (guess) to guessAndFeedback variable
+  // (Store history of user guesses and computer feedback)
   const addGuess = guess => {
     const guessAndFeedback = getComputerFeedback(guess);
 
     setGuessesAndFeedbackList([...guessesAndFeedbackList, guessAndFeedback]);
+
+    // decouple this?
     if (guessesAndFeedbackList.length === 9) {
       setIsGameOver(true);
     }

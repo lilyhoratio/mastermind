@@ -3,6 +3,7 @@ import React from "react";
 function Instructions() {
   return (
     <div className="instructions">
+      <h2>instructions</h2>
       <p>
         I generated a code composed of four random digits (0-7). You have 10
         tries to guess the correct code. Duplicate digits in a code are

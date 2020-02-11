@@ -2,13 +2,20 @@ body {
   background-color: black;
 }
 
+div {
+  box-sizing: border-box;
+}
+
 $terminal-green: #00ff00;
 $windows-grey: #d8d5cb;
+$windows-blue: #1e03a1;
+$terminal-pink: #bc00be;
+$terminal-light-blue: #00cccc;
 
 .App {
   text-align: center;
   margin: 10px auto;
-  width: 60%;
+  width: 65%;
   color: #00ff00;
   font-family: "Courier New", Courier, monospace;
   display: flex;
@@ -56,12 +63,12 @@ $windows-grey: #d8d5cb;
   border-bottom: 2px dotted $terminal-green;
   margin-bottom: 20px;
   .instructions {
-    width: 60%;
+    width: 55%;
     padding-right: 20px;
   }
   .game-stats {
     padding-left: 20px;
-    width: 40%;
+    width: 45%;
     border-left: 1px dotted $terminal-green;
     display: flex;
     flex-direction: column;
@@ -69,6 +76,10 @@ $windows-grey: #d8d5cb;
     text-align: center;
     .guesses-remaining {
       font-size: 2rem;
+    }
+
+    .hearts {
+      color: red;
     }
   }
 }
@@ -82,20 +93,28 @@ $windows-grey: #d8d5cb;
   align-items: center;
 
   .guess-and-feedback {
-    width: 80%;
+    width: 75%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
+    align-items: center;
+    padding-bottom: 10px;
+    font-weight: bold;
 
     .guess {
+      font-size: 1.2em;
       width: 20%;
       text-align: left;
+      text-align: center;
+      background-color: $terminal-green;
+      color: black;
     }
 
     .feedback {
+      padding-left: 20px;
       width: 80%;
       text-align: left;
+      color: $terminal-light-blue;
     }
   }
 }
@@ -103,6 +122,7 @@ $windows-grey: #d8d5cb;
 // PlayerGuessInput
 .guess-input {
   color: $terminal-green;
+  text-shadow: 1px 1px 1px;
   background-color: darkgreen;
   border: none;
   width: 4rem;
@@ -125,7 +145,7 @@ $windows-grey: #d8d5cb;
   .modal-header {
     padding: 5px;
     text-align: left;
-    background-color: #1e03a1;
+    background-color: $windows-blue;
     color: $windows-grey;
     margin: 0;
   }
@@ -146,5 +166,52 @@ $windows-grey: #d8d5cb;
     &:hover {
       transform: translate(1px, 1px);
     }
+  }
+}
+
+.ghost-container {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: row;
+  animation: ghostappears 4s ease-in-out;
+
+  #ghost {
+    width: 100px;
+    height: auto;
+  }
+}
+
+.ghost-container-hidden {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: row;
+  opacity: 0%;
+
+  #ghost {
+    width: 100px;
+    height: auto;
+  }
+}
+
+@keyframes ghostappears {
+  0% {
+    opacity: 10%;
+    transform: translateY(100px);
+  }
+  30% {
+    opacity: 100%;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 100%;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 10%;
+    transform: translateY(100px);
   }
 }
