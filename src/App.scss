@@ -15,7 +15,7 @@ $terminal-light-blue: #00cccc;
 .App {
   text-align: center;
   margin: 10px auto;
-  width: 65%;
+  width: 70%;
   color: #00ff00;
   font-family: "Courier New", Courier, monospace;
   display: flex;
@@ -93,7 +93,7 @@ $terminal-light-blue: #00cccc;
   align-items: center;
 
   .guess-and-feedback {
-    width: 75%;
+    width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
@@ -106,6 +106,7 @@ $terminal-light-blue: #00cccc;
       width: 20%;
       text-align: left;
       text-align: center;
+      margin-left: 80px;
       background-color: $terminal-green;
       color: black;
     }
@@ -175,11 +176,16 @@ $terminal-light-blue: #00cccc;
   left: 10px;
   display: flex;
   flex-direction: row;
-  animation: ghostappears 4s ease-in-out;
+  animation: ghostappears 5s ease;
 
   #ghost {
     width: 100px;
     height: auto;
+  }
+
+  #ghost-rawr {
+    color: red;
+    font-weight: bold;
   }
 }
 

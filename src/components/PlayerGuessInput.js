@@ -4,9 +4,11 @@ import Ghost from "../images/ghost.png";
 function PlayerGuessInput({ addGuess, isGameOver }) {
   const [guess, setGuess] = useState("");
   const [appear, setAppear] = useState(false);
+  const [ghostText, setGhostText] = useState("");
 
   const handleChanges = e => {
     if (e.target.value.match(/\D/)) {
+      setGhostText("only numbers allowed!!!");
       setAppear(true);
     } else {
       setGuess(e.target.value);
@@ -17,8 +19,14 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    addGuess(guess);
-    setGuess("");
+
+    if (guess.length !== 4) {
+      setGhostText("not enough or too many digits!!!");
+      setAppear(true);
+    } else {
+      addGuess(guess);
+      setGuess("");
+    }
   };
 
   return (
@@ -43,7 +51,7 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
           onAnimationEnd={() => setAppear(false)}
         >
           <img id="ghost" src={Ghost} alt="ghost" />
-          <span id="ghost-rawr">only numbers allowed!!! </span>
+          <span id="ghost-rawr">{ghostText}</span>
         </div>
       </>
     )
