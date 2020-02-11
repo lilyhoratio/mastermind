@@ -20,8 +20,11 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (guess.length !== 4) {
-      setGhostText("not enough or too many digits!!!");
+    if (guess.length > 4) {
+      setGhostText("too many digits!!!");
+      setAppear(true);
+    } else if (guess.length === 0) {
+      setGhostText("enter a digit!!!");
       setAppear(true);
     } else {
       addGuess(guess);
@@ -45,12 +48,11 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
             />
           </label>
         </form>
-        {/* <button onClick={() => setAppear(true)}>start</button> */}
         <div
           className={`ghost-container${appear ? "" : "-hidden"}`}
           onAnimationEnd={() => setAppear(false)}
         >
-          <img id="ghost" src={Ghost} alt="ghost" />
+          {/* <img id="ghost" src={Ghost} alt="ghost" /> */}
           <span id="ghost-rawr">{ghostText}</span>
         </div>
       </>
