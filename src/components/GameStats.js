@@ -15,7 +15,8 @@ function GameStats({
 
   // how to re-use custom hook?
   // import { useAPI } from "./services/hooks";
-  const [code, isLoading, errors] = useAPI("loadUsers");
+  // const [code, isLoading, errors] = useAPI("");
+  console.log(useAPI());
   const generateNewCode = () => {};
 
   let guessesRemaining = allowedGuesses - guessesAndFeedbackList.length;
@@ -40,7 +41,7 @@ function GameStats({
         onClick={() =>
           withClippy(clippy =>
             clippy.speak(
-              "Change the # of max attempts by clicking on the number."
+              "Change the # of max attempts by clicking on the number in instructions."
             )
           )
         }

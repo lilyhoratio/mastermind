@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Ghost from "../images/ghost.png";
+// import Ghost from "../images/ghost.png";
+import Ghost from "../images/clippy.gif";
 
 function PlayerGuessInput({ addGuess, isGameOver }) {
   const [guess, setGuess] = useState("");
@@ -10,11 +11,12 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
     if (e.target.value.match(/\D/)) {
       setGhostText("only numbers allowed!!!");
       setAppear(true);
+    } else if (e.target.value.match(/[8-9]/)) {
+      setGhostText(`${e.target.value} is not between 0-7!!!`);
+      setAppear(true);
     } else {
       setGuess(e.target.value);
     }
-    // Remove non-digits by converting them into empty strings using regex
-    // setGuess(e.target.value.replace(/\D/, ""));
   };
 
   const handleSubmit = e => {

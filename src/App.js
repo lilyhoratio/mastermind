@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // ======= Components
 import Instructions from "./components/Instructions";
 import GuessHistory from "./components/GuessHistory";

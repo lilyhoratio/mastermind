@@ -12,7 +12,6 @@ function Instructions({ allowedGuesses, setAllowedGuesses }) {
       <h2>instructions</h2>
       <p>
         I generated a code composed of four random digits (0-7). You have{" "}
-        {/* {allowedGuesses}{" "} */}
         <span className="attempts-dropdown">
           <select value={value} onChange={handleChange}>
             <option value="10">10</option>
