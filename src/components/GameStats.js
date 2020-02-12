@@ -15,7 +15,7 @@ function GameStats({
 
   // how to re-use custom hook?
   // import { useAPI } from "./services/hooks";
-  // const [ users, isLoading, error, retry ] = useAPI('loadUsers');
+  const [code, isLoading, errors] = useAPI("loadUsers");
   const generateNewCode = () => {};
 
   let guessesRemaining = allowedGuesses - guessesAndFeedbackList.length;

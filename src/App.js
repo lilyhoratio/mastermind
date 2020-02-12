@@ -68,7 +68,6 @@ function App() {
 
     setGuessesAndFeedbackList([...guessesAndFeedbackList, guessAndFeedback]);
 
-    // decouple this?
     if (guessesAndFeedbackList.length === allowedGuesses - 1) {
       setIsGameOver(true);
     }

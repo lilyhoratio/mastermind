@@ -25,9 +25,9 @@ function Instructions({ allowedGuesses, setAllowedGuesses }) {
       </p>
       <p>At the end of each guess, I will indicate:</p>
       <ul>
-        <li># of correct location/digit (exact match)</li>
-        <li># of correct digit only (fuzzy match) </li>
-        <li>all incorrect numbers</li>
+        <li># of correct numbers and their locations (exact match)</li>
+        <li># of correct numbers, but not their location (fuzzy match) </li>
+        <li>all incorrect digits</li>
       </ul>
       <a href="https://github.com/lilyhoratio/mastermind">Source Code</a>
     </div>
