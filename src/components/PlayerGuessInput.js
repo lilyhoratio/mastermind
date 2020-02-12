@@ -6,7 +6,7 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
   const [appear, setAppear] = useState(false);
   const [ghostText, setGhostText] = useState("");
 
-  const handleChanges = e => {
+  const handleChange = e => {
     if (e.target.value.match(/\D/)) {
       setGhostText("only numbers allowed!!!");
       setAppear(true);
@@ -24,7 +24,7 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
       setGhostText("too many digits!!!");
       setAppear(true);
     } else if (guess.length === 0) {
-      setGhostText("enter a digit!!!");
+      setGhostText("enter something!!!");
       setAppear(true);
     } else {
       addGuess(guess);
@@ -43,7 +43,7 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
               name="guess"
               placeholder=""
               value={guess}
-              onChange={handleChanges}
+              onChange={handleChange}
               className="guess-input"
             />
           </label>

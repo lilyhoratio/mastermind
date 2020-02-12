@@ -6,6 +6,10 @@ div {
   box-sizing: border-box;
 }
 
+a {
+  color: inherit;
+}
+
 $terminal-green: #00ff00;
 $windows-grey: #d8d5cb;
 $windows-blue: #1e03a1;
@@ -55,6 +59,10 @@ $terminal-light-blue: #00cccc;
   }
 }
 
+.button {
+  cursor: pointer;
+}
+
 // InstructionStats Wrapper
 .instructions-and-stats {
   display: flex;
@@ -65,6 +73,20 @@ $terminal-light-blue: #00cccc;
   .instructions {
     width: 55%;
     padding-right: 20px;
+
+    select {
+      font-size: 1rem;
+      font-weight: bold;
+      outline: none;
+      background: none;
+      color: $terminal-green;
+      font-family: "Courier New", Courier, monospace;
+      border: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      -ms-appearance: none;
+    }
   }
   .game-stats {
     padding-left: 20px;
@@ -176,7 +198,7 @@ $terminal-light-blue: #00cccc;
   left: 10px;
   display: flex;
   flex-direction: row;
-  animation: ghostappears 5s ease;
+  animation: ghostappears 4s ease;
 
   #ghost {
     width: 100px;
@@ -209,7 +231,7 @@ $terminal-light-blue: #00cccc;
     opacity: 10%;
     transform: translateY(100px);
   }
-  30% {
+  20% {
     opacity: 100%;
     transform: translateY(0px);
   }

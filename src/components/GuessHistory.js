@@ -4,8 +4,8 @@ import React from "react";
 function GuessHistory({ guessesAndFeedbackList }) {
   return (
     <div className="guess-history-container">
-      {guessesAndFeedbackList.map(guess => (
-        <div className="guess-and-feedback">
+      {guessesAndFeedbackList.map((guess, i) => (
+        <div key={i} className="guess-and-feedback">
           <span className="guess">{guess.guess} </span>
           <span className="feedback">{guess.feedback} </span>
         </div>

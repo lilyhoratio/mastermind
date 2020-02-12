@@ -1,14 +1,13 @@
 # Mastermind Game
 
-Deployed at [mastermind-lily.netlify.com](www.mastermind-lily.netlify.com)
+The game is deployed at [mastermind-lily.netlify.com](www.mastermind-lily.netlify.com), but the user experience is better when run locally due to small issues with Netlify.
 
 ## Table of Contents
 
 - [Steps to run locally](#steps-to-run-locally)
-- [Code & Refactoring Highlights](#code-&-refactoring-highlights)
 - [Features](#features)
-- [Testing & Use Cases](#testing-&-use-cases)
-- [Future Improvemets](#future-improvements)
+- [Unexpected Obstacles](#unexpected-obstacles)
+- [Future Improvements](#future-improvements)
 - [Tech stack](#tech-stack)
 
 ## Steps to run locally
@@ -17,12 +16,35 @@ Deployed at [mastermind-lily.netlify.com](www.mastermind-lily.netlify.com)
 2. `cd mastermind-lily`
 3. `yarn` to install dependencies
 4. `yarn start` to launch React app
+5. `yarn test` to run tests
 
-## Code & Refactoring Highlights
+## Features
+
+- [x] Ability to toggle viewing the code combination for easier user testing
+- [ ] Ability to restart game by generating a new code combination
+- [x] Conditional rendering of won game vs. lost game pop-ups
+- [x] Computer gives feedback after each guess with the count of exact (correct digit/location) vs. fuzzy matches (correct digit, not location)
+- [x] Pacman ghost animation alert with conditional text when:
+
+  - user types in non-integers
+  - user submits nothing
+  - user submits a guess with more than 4 digits
+
+- [ ] User is prevented from accessing the input form after guessing the correct combination or when they reach 10 tries
+
+Maybe:
+
+- [ ] Save user's first name in localStorage - use as terminal prompt or modal message
+
+## Unexpected Obstacles
+
+I originally coded a simpler form of this game as a CLI game using Node.js. After I got the basic game working, I decided to make it into a web app using React. Managing the state among different components proved to be challenging than I expected, especially as I added more interactivity and detail to the computer feedback.
+
+Adding animations for the ghost was tougher than expected.
 
 ### Bug fix in algorithm to count exact vs. fuzzy matches
 
-My first implementation had a bug in counting the exact match vs. fuzzy match of digits in the guess. Because the user could enter a code with duplicate digits, the count of fuzzy matches was inflated. For example, if the number was 5124, and the user guessed, 5555, the computer incorrected indicated 1 exact match and 3 fuzzy matches (should be 0 fuzzy matches).
+My first implementation had a bug in counting the exact match vs. fuzzy match of digits in the guess. Because the user could enter a code with duplicate digits, the count of fuzzy matches was sometimes inflated. For example, if the number was 5124, and the user guessed, 5555, the computer incorrected indicated 1 exact match and 3 fuzzy matches (should have been 0 fuzzy matches).
 
 ```javascript
 const getComputerFeedback = guess => {
@@ -131,22 +153,59 @@ const convertStringToIntArray = (stringInt, separator = "") => {
 };
 ```
 
-## Features
+Thanks to this guide (https://blog.siliconjungles.io/how-to-use-react-hooks-to-abstract-api-calls) which explained custom hooks and helped in my refactoring of API calls.
 
-- [x] Ability to toggle code for easier user testing
-- [] Ability to restart game with new random code
-- [x] Conditional rendering of "Game Over" modals (won game vs. lost game)
-- [x] computer gives count of exact vs. fuzzy matches
-- [] unit tests
-- [] Save user's first name in localStorage - use as terminal prompt or modal message
-- [] User is alerted if incorrect input is made (e.g. non-digits, fewer than or greater than 4 digits)
+Originally, in App.js:
 
-## Testing & Use-cases
+```js
+const [code, setCode] = useState([]);
 
-- [x] Prevent user from inputting non-integers
-- [] Prevent user from inputting more than 4 digits
-- [x] Prevent user from accessing input form after guessing correct combination
-- [x] Prevent user from accessing input form after 10 tries
+useEffect(() => {
+  api
+    .getRandomIntegers()
+    .then(res => {
+      let rawIntegers = res.data;
+      let cleanedIntegers = convertStringToIntArray(rawIntegers, "\n");
+      cleanedIntegers.pop(); // remove last element due to extra \n separator
+      setCode(cleanedIntegers);
+    })
+    .catch(err => console.log(err));
+}, []);
+```
+
+Because I would re-use this API call in other components, I abstracted it away in a custom hook:
+
+```js
+// hooks.js
+
+export function useAPI() {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    api
+      .getRandomIntegers()
+      .then(res => {
+        let rawIntegers = res.data;
+        let cleanedIntegers = convertStringToIntArray(rawIntegers, "\n");
+        cleanedIntegers.pop(); // remove last element due to extra \n separator
+        setIsLoading(true);
+        setData(cleanedIntegers);
+      })
+      .catch(err => {
+        console.log(err);
+        setError(err);
+      });
+  }, []);
+
+  return [data, isLoading, error];
+}
+
+// App.js could not be simplified to the following:
+
+const [code, isLoading, error] = useAPI("getIntegerCode");
+```
 
 ## Future Improvements
 
