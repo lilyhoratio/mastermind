@@ -315,8 +315,7 @@ export default PlayerGuessInput;
 
 The SASS for the animation-related classes was as follows:
 
-```sass
-
+```scss
 .ghost-container {
   position: fixed;
   bottom: 10px;
