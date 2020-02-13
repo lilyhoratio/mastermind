@@ -20,6 +20,14 @@ The game is deployed at https://mastermind-lily.netlify.com/, but the user exper
 
 ## Features
 
+MVP:
+
+- [x] Ability to guess the combinations of 4 numbers
+- [x] Ability to view the history of guesses and their feedback
+- [x] The number of guesses remaining is displayed
+
+Extra features:
+
 - [x] Ability to toggle viewing the code combination for easier user testing
 - [x] Conditional rendering of won game vs. lost game pop-ups
 - [x] Ability to restart game by generating a new code combination - in pop-up when user wins or loses game, and the "Generate new code" component
