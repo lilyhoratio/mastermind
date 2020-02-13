@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { convertStringToIntArray } from "../services/helpers";
 import * as api from "../services/api";
 
