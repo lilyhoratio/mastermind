@@ -43,7 +43,7 @@ The game is deployed at https://mastermind-lily.netlify.com/, but the user exper
 
 ## Code Refactoring Highlights
 
-I originally coded a simpler form of this as a CLI game using Node.js. After I got the basic game working, I decided to make it into a web app using React. Managing the state among different components proved to be challenging than I expected, especially as I added more interactivity and detail to the computer feedback, while also breaking the game into smaller components and adding helper functions for DRY code.
+I originally coded a simpler form of this as a CLI game using Node.js. After I got the basic game working, I decided to make it into a web app using React. Managing the state among different components proved to be more challenging than I expected, especially as I added more interactivity and detail to the computer feedback, while also breaking the game into smaller components and adding helper functions for DRY code. Here are some highlights of my thought process!
 
 ### Bug fix in algorithm to count exact vs. fuzzy matches
 
@@ -236,6 +236,129 @@ api.getRandomIntegers().then(res => {
 
 // Also used in App.js to convert the user's form input:
 guess = convertStringToIntArray(guess);
+```
+
+### Pacman Ghost animation based on invalid user inputs
+
+The nostalgia of my terminal theme game made me think of Pacman. In order to animate my Pacman ghost, I set `appear` as a boolean state which defaulted to `false`. This variable would be set to `true` if the user input went into several conditionals, which are reflected in the `handleChange` and `handleSubmit` functions.
+
+Making the ghost animate was trickier than I expected, and I learned about the React synthetic event called onAnimationEnd. In order to reset `appear` back to `false` using the `setAppear` hook, I invoked the `setAppear` hook onAnimationEnd of the CSS animation. This allowed me to conditionally render a className `ghost-container` vs. `ghost-container-hidden` based on the `appear` state.
+
+```js
+// <GuessInput /> component
+
+import React, { useState } from "react";
+import Ghost from "../images/ghost.png";
+
+function PlayerGuessInput({ addGuess, isGameOver }) {
+  const [guess, setGuess] = useState("");
+  const [appear, setAppear] = useState(false);
+  const [ghostText, setGhostText] = useState("");
+
+  const handleChange = e => {
+    if (e.target.value.match(/\D/)) {
+      setGhostText("only numbers allowed!!!");
+      setAppear(true);
+    } else if (e.target.value.match(/[8-9]/)) {
+      setGhostText(`${e.target.value} is not between 0-7!!!`);
+      setAppear(true);
+    } else {
+      setGuess(e.target.value);
+    }
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (guess.length > 4) {
+      setGhostText("too many digits!!!");
+      setAppear(true);
+    } else if (guess.length === 0) {
+      setGhostText("enter something!!!");
+      setAppear(true);
+    } else {
+      addGuess(guess);
+      setGuess("");
+    }
+  };
+
+  return (
+    !isGameOver && (
+      <>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Enter 4 digits (0-7):
+            <input
+              type="text"
+              name="guess"
+              placeholder=""
+              value={guess}
+              onChange={handleChange}
+              className="guess-input"
+            />
+          </label>
+        </form>
+        <div
+          className={`ghost-container${appear ? "" : "-hidden"}`}
+          onAnimationEnd={() => setAppear(false)}
+        >
+          <img id="ghost" src={Ghost} alt="ghost" />
+          <span id="ghost-rawr">{ghostText}</span>
+        </div>
+      </>
+    )
+  );
+}
+
+export default PlayerGuessInput;
+```
+
+The SASS for the animation-related classes was as follows:
+
+```sass
+
+.ghost-container {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: row;
+  animation: ghostappears 4s ease;
+
+  #ghost {
+    width: 100px;
+    height: auto;
+  }
+
+  #ghost-rawr {
+    color: red;
+    font-weight: bold;
+    z-index: 999;
+  }
+}
+
+.ghost-container-hidden {
+  opacity: 0%;
+}
+
+@keyframes ghostappears {
+  0% {
+    opacity: 10%;
+    transform: translateY(100px);
+  }
+  20% {
+    opacity: 100%;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 100%;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 10%;
+    transform: translateY(100px);
+  }
+}
 ```
 
 ## Future Improvements
