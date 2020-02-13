@@ -27,6 +27,7 @@ function App() {
   }, []);
 
   const withClippy = useClippy("Clippy");
+  console.log(guessesAndFeedbackList);
 
   // ======= Algorithm to determine computer's feedback based on user's input
   const getComputerFeedback = guess => {
@@ -34,21 +35,21 @@ function App() {
     let fuzzyMatch = 0;
     let exactMatch = 0;
 
-    guess = convertStringToIntArray(guess);
+    let guessCopy = convertStringToIntArray(guess);
     let codeCopy = [...code];
 
     for (let i = 0; i < codeCopy.length; i++) {
-      if (guess[i] === codeCopy[i]) {
+      if (guessCopy[i] === codeCopy[i]) {
         exactMatch++;
-        guess[i] = null;
+        guessCopy[i] = null;
         codeCopy[i] = null;
       }
     }
 
     for (let i = 0; i < codeCopy.length; i++) {
-      if (codeCopy.includes(guess[i]) && guess[i] !== codeCopy[i]) {
+      if (codeCopy.includes(guessCopy[i]) && guessCopy[i] !== codeCopy[i]) {
         fuzzyMatch++;
-        codeCopy[codeCopy.indexOf(guess[i])] = null;
+        codeCopy[codeCopy.indexOf(guessCopy[i])] = null;
       }
     }
 
