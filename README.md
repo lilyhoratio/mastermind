@@ -1,6 +1,6 @@
 # Mastermind Game
 
-The game is deployed at [mastermind-lily.netlify.com](www.mastermind-lily.netlify.com), but the user experience is better when run locally due to small issues with Netlify.
+The game is deployed at https://mastermind-lily.netlify.com/, but the user experience is better when run locally due to small issues with Netlify.
 
 ## Table of Contents
 
