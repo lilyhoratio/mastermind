@@ -83,22 +83,22 @@ const getComputerFeedback = guess => {
   let fuzzyMatch = 0;
   let exactMatch = 0;
 
-  let guess = convertStringToIntArray(guess);
+  let guessCopy = convertStringToIntArray(guess);
   let codeCopy = [...code];
 
   // Get the count of exact matches. Remove any matching elements from both the codeCopy & guess
   for (let i = 0; i < guess.length; i++) {
-    if (guess[i] === codeCopy[i]) {
+    if (guessCopy[i] === codeCopy[i]) {
       exactMatch++;
-      guess[i] = null;
+      guessCopy[i] = null;
       codeCopy[i] = null;
     }
   }
 
-  for (let i = 0; i < guess.length; i++) {
-    if (codeCopy.includes(guess[i]) && guess[i] !== codeCopy[i]) {
+  for (let i = 0; i < guessCopy.length; i++) {
+    if (codeCopy.includes(guessCopy[i]) && guessCopy[i] !== codeCopy[i]) {
       fuzzyMatch++;
-      codeCopy[codeCopy.indexOf(guess[i])] = null;
+      codeCopy[codeCopy.indexOf(guessCopy[i])] = null;
     }
   }
 
