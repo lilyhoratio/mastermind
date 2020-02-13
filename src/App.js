@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // ======= Components
 import Instructions from "./components/Instructions";
 import GuessHistory from "./components/GuessHistory";
-import PlayerGuessInput from "./components/PlayerGuessInput";
+import GuessInput from "./components/GuessInput";
 import GameStats from "./components/GameStats";
 import Modal from "./components/Modal";
 
 // ======= Helpers
 import { convertStringToIntArray } from "./services/helpers";
-import { useAPI } from "./services/hooks";
+import { useRandomInteger } from "./hooks/useRandomInteger";
 
 import "./App.scss";
 import { useClippy } from "use-clippy-now";
@@ -20,7 +20,11 @@ function App() {
   const [isGameWon, setIsGameWon] = useState(false);
   const [showCode, setShowCode] = useState(false);
   const [allowedGuesses, setAllowedGuesses] = useState("10");
-  const [code, isLoading, error] = useAPI("getIntegerCode");
+  const [code, changeCode, isLoading, error] = useRandomInteger();
+
+  useEffect(() => {
+    changeCode();
+  }, []);
 
   const withClippy = useClippy("Clippy");
 
@@ -30,21 +34,21 @@ function App() {
     let fuzzyMatch = 0;
     let exactMatch = 0;
 
-    let intGuess = convertStringToIntArray(guess);
+    guess = convertStringToIntArray(guess);
     let codeCopy = [...code];
 
     for (let i = 0; i < codeCopy.length; i++) {
-      if (intGuess[i] === codeCopy[i]) {
+      if (guess[i] === codeCopy[i]) {
         exactMatch++;
-        intGuess[i] = null;
+        guess[i] = null;
         codeCopy[i] = null;
       }
     }
 
     for (let i = 0; i < codeCopy.length; i++) {
-      if (codeCopy.includes(intGuess[i]) && intGuess[i] !== codeCopy[i]) {
+      if (codeCopy.includes(guess[i]) && guess[i] !== codeCopy[i]) {
         fuzzyMatch++;
-        codeCopy[codeCopy.indexOf(intGuess[i])] = null;
+        codeCopy[codeCopy.indexOf(guess[i])] = null;
       }
     }
 
@@ -83,6 +87,7 @@ function App() {
         />
         <GameStats
           code={code}
+          changeCode={changeCode}
           guessesAndFeedbackList={guessesAndFeedbackList}
           showCode={showCode}
           setShowCode={setShowCode}
@@ -90,9 +95,14 @@ function App() {
           allowedGuesses={allowedGuesses}
         />
       </div>
-      <PlayerGuessInput addGuess={addGuess} isGameOver={isGameOver} />
+      <GuessInput addGuess={addGuess} isGameOver={isGameOver} />
       <GuessHistory guessesAndFeedbackList={guessesAndFeedbackList} />
-      <Modal isGameOver={isGameOver} isGameWon={isGameWon} code={code} />
+      <Modal
+        isGameOver={isGameOver}
+        isGameWon={isGameWon}
+        code={code}
+        changeCode={changeCode}
+      />
     </div>
   );
 }

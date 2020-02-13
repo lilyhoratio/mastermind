@@ -1,8 +1,8 @@
-import React from "react";
-import { useAPI } from "../services/hooks";
+import React, { useEffect } from "react";
 
 function GameStats({
   code,
+  changeCode,
   guessesAndFeedbackList,
   showCode,
   setShowCode,
@@ -13,12 +13,6 @@ function GameStats({
     setShowCode(!showCode);
   };
 
-  // how to re-use custom hook?
-  // import { useAPI } from "./services/hooks";
-  // const [code, isLoading, errors] = useAPI("");
-  console.log(useAPI());
-  const generateNewCode = () => {};
-
   let guessesRemaining = allowedGuesses - guessesAndFeedbackList.length;
   let heartsRemaining = Array(guessesRemaining).fill("♥ ");
 
@@ -27,7 +21,11 @@ function GameStats({
       <div className="button integer-combo" onClick={handleClick}>
         {showCode ? code : "► Click to view code ◄"}
       </div>
-      <div className="button new-game-button" onClick={generateNewCode}>
+      {/* <div className="button new-game-button" onClick={changeCode}> */}
+      <div
+        className="button new-game-button"
+        onClick={() => window.location.reload(false)}
+      >
         ↻ Generate new code ↻
       </div>
       <div className="guesses-remaining">{guessesRemaining} guesses left</div>
@@ -41,7 +39,7 @@ function GameStats({
         onClick={() =>
           withClippy(clippy =>
             clippy.speak(
-              "Change the # of max attempts by clicking on the number in instructions."
+              "Change difficulty by clicking on the # of tries under instructions."
             )
           )
         }

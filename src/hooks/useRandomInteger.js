@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { convertStringToIntArray } from "./helpers";
-import * as api from "./api";
+import { convertStringToIntArray } from "../services/helpers";
+import * as api from "../services/api";
 
-export function useAPI(method) {
+export function useRandomInteger(method) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const changeData = () => {
     api
       .getRandomIntegers()
       .then(res => {
@@ -21,7 +21,7 @@ export function useAPI(method) {
         console.log(err);
         setError(err);
       });
-  }, []);
+  };
 
-  return [data, isLoading, error];
+  return [data, changeData, isLoading, error];
 }

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-// import Ghost from "../images/ghost.png";
-import Ghost from "../images/clippy.gif";
+import Ghost from "../images/ghost.png";
 
 function PlayerGuessInput({ addGuess, isGameOver }) {
   const [guess, setGuess] = useState("");

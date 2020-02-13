@@ -1,6 +1,6 @@
 import React from "react";
 
-function Modal({ isGameOver, isGameWon, code }) {
+function Modal({ isGameOver, isGameWon, code, changeCode }) {
   if (!isGameOver) return null;
 
   return (
@@ -20,6 +20,7 @@ function Modal({ isGameOver, isGameWon, code }) {
       <div
         className="generate-number-button"
         onClick={() => window.location.reload(false)}
+        // onClick={changeCode}
       >
         Generate new random number
       </div>
