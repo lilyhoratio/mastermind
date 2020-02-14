@@ -65,7 +65,7 @@ Extra features:
 
 ## Application Structure
 
-![Application-Structure](images/application_structure.svg)
+![Application-Structure](images/application_structure.png)
 
 ## Code Refactoring Highlights
 
