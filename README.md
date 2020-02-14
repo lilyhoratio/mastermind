@@ -12,7 +12,7 @@ The game is [deployed](https://mastermind-lily.netlify.com/), but the user exper
 - [Steps to run locally](#steps-to-run-locally)
 - [Features](#features)
 - [Application Structure](#application-structure)
-- [Code Refactoring Highlights & Unexpected Obstacles](#Code-refactoring-highlights)
+- [Code Refactoring Highlights](#Code-refactoring-highlights)
 - [Future Improvements](#future-improvements)
 - [Tech stack](#tech-stack)
 
@@ -58,6 +58,8 @@ Extra features:
 - [x] Clippy (📎) animation when user wants to change difficulty, which prompts the user to change the number of max tries allowed. Changing the max tries resets state for number of guesses remaining.
 
 ![change-max-attempts](change-max-attempts.gif)
+
+## Application Structure
 
 ## Code Refactoring Highlights
 
