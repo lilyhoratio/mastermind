@@ -42,6 +42,7 @@ Extra features:
 - [x] Conditional rendering of won game vs. lost game pop-ups
 - [x] Ability to restart game by generating a new code combination - in pop-up when user wins or loses game, and the "Generate new code" component
 - [x] Computer gives feedback after each guess with the count of exact (correct digit/location) vs. fuzzy matches (correct digit, not location)
+- [x] User is prevented from accessing the input form after guessing the correct combination or when they reach 10 tries (form disappears)
 
 ![Modal-win](modal-win.gif)
 
@@ -54,12 +55,13 @@ Extra features:
 
 ![Error-handling](error-handling.gif)
 
-- [x] User is prevented from accessing the input form after guessing the correct combination or when they reach 10 tries (form disappears)
 - [x] Clippy (📎) animation when user wants to change difficulty, which prompts the user to change the number of max tries allowed. Changing the max tries resets state for number of guesses remaining.
 
 ![change-max-attempts](change-max-attempts.gif)
 
 ## Application Structure
+
+![Application-Structure](images/application_structure.svg)
 
 ## Code Refactoring Highlights
 

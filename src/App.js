@@ -27,7 +27,6 @@ function App() {
   }, []);
 
   const withClippy = useClippy("Clippy");
-  console.log(guessesAndFeedbackList);
 
   // ======= Algorithm to determine computer's feedback based on user's input
   const getComputerFeedback = guess => {
