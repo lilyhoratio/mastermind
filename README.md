@@ -1,14 +1,24 @@
 # Mastermind Game
 
-The game is deployed at https://mastermind-lily.netlify.com/, but the user experience is better when run locally due to small issues with Netlify.
+![Game](images/mastermind.png)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/45006e28-5bc0-4d75-aa62-3025556963c0/deploy-status)](https://app.netlify.com/sites/mastermind-lily/deploys)
+
+The game is [deployed](https://mastermind-lily.netlify.com/), but the user experience is better when run locally due to small issues with Netlify loading of animated images.
 
 ## Table of Contents
 
+- [Overview](#overview)
 - [Steps to run locally](#steps-to-run-locally)
 - [Features](#features)
+- [Application Structure](#application-structure)
 - [Code Refactoring Highlights & Unexpected Obstacles](#Code-refactoring-highlights)
 - [Future Improvements](#future-improvements)
 - [Tech stack](#tech-stack)
+
+## Overview
+
+Mastermind is a code-breaking game where the user attempts to guess the digits of a secret PIN. It is a take off the [Mastermind board game](<https://en.wikipedia.org/wiki/Mastermind_(board_game)>)
 
 ## Steps to run locally
 
@@ -175,7 +185,7 @@ useEffect(() => {
 }, []);
 ```
 
-Because I wanted the ability to reset the random integer in other components based on user interactions (<GameStats /> which has a "generate new code" button), I wended up abstracting away the logic of the API call through a custom hook. Thanks to these two articles: https://blog.siliconjungles.io/how-to-use-react-hooks-to-abstract-api-calls & https://blog.bitsrc.io/simple-code-reuse-with-react-hooks-432f390696bf.
+Because I wanted the ability to reset the random integer in other components based on user interactions in other components, I ended up abstracting away the logic of the API call through a custom hook. Thanks to these two articles for guides on how to do so: https://blog.siliconjungles.io/how-to-use-react-hooks-to-abstract-api-calls & https://blog.bitsrc.io/simple-code-reuse-with-react-hooks-432f390696bf.
 
 ```js
 // In hooks.js
@@ -376,6 +386,7 @@ With more time, I would love to add the following:
 - Make the getRandomInteger function reusable with ability to pass in parameters for min digit, max digit, and number of digits.
 - Create pop-up that displays the `error` if API is down.
 - Break out the SASS files into different components, rather than have them all in App.scss
+- Mobile-responsive
 
 ## Tech Stack
 
