@@ -2,14 +2,14 @@ import { useState } from "react";
 import { convertStringToIntArray } from "../services/helpers";
 import * as api from "../services/api";
 
-export function useRandomInteger(method) {
+export function useRandomInteger(integerParams) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const changeData = () => {
     api
-      .getRandomIntegers()
+      .getRandomIntegers(integerParams)
       .then(res => {
         let rawIntegers = res.data;
         let cleanedIntegers = convertStringToIntArray(rawIntegers, "\n");

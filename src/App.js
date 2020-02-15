@@ -10,6 +10,9 @@ import Modal from "./components/Modal";
 import { convertStringToIntArray } from "./services/helpers";
 import { useRandomInteger } from "./hooks/useRandomInteger";
 
+// ======= Variables
+import { integerAPIParams } from "./services/variables";
+
 import "./App.scss";
 import { useClippy } from "use-clippy-now";
 
@@ -20,7 +23,9 @@ function App() {
   const [isGameWon, setIsGameWon] = useState(false);
   const [showCode, setShowCode] = useState(false);
   const [allowedGuesses, setAllowedGuesses] = useState("10");
-  const [code, changeCode, isLoading, error] = useRandomInteger();
+  const [code, changeCode, isLoading, error] = useRandomInteger(
+    integerAPIParams
+  );
 
   useEffect(() => {
     changeCode();

@@ -198,7 +198,7 @@ Because I wanted the ability to reset the random integer in other components bas
 ```js
 // In hooks.js
 
-export function useRandomInteger(method) {
+export function useRandomInteger() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -224,9 +224,10 @@ export function useRandomInteger(method) {
 }
 ```
 
-App.js could now be simplified to the following:
+App.js could now be simplified to to the following:
 
 ```js
+// In App.js:
 const [code, changeCode, isLoading, error] = useRandomInteger();
 
 useEffect(() => {
@@ -243,6 +244,29 @@ And the `changeCode` function passed down to <GameStats /> component and used in
   ↻ Generate new code ↻
 </div>
 ```
+
+I also refactored the base API call from a hardcoded call to variable based on the API call's parameters:
+
+```js
+// In services/api.js
+
+// From:
+export function getRandomIntegers(integerParams) {
+  return axios.get(`${baseUrl}/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new`)
+  );
+}
+
+// To:
+export function getRandomIntegers(integerParams) {
+  let { num, min, max, col, base, format, rnd } = integerParams;
+  return axios.get(
+    `${baseUrl}/integers/?num=${num}&min=${min}&max=${max}&col=${col}&base=${base}&format=${format}&rnd=${rnd}`
+  );
+}
+
+```
+
+### Helper methods
 
 I also noticed the logic to clean the user input was similar to the logic to clean the API response, so created a helper function called
 `convertStringToIntArray` to convert both the Random Integer API response and user input from raw strings into an array of integers.
@@ -395,11 +419,12 @@ With more time, I would love to add the following:
 - Create pop-up that displays the `error` if API is down.
 - Break out the SASS files into different components, rather than have them all in App.scss
 - Mobile-responsive
+- Refactor more custom hooks for toggling boolean hooks (guide: https://daveceddia.com/custom-hooks/)
 
 ## Tech Stack
 
-- React
-- SASS
-- Axios
-- Random.org API for random numbers
-- [Clippy.js](https://github.com/SaraVieira/useClippy)
+- [React](https://reactjs.org/) to appease Mark Zuckerberg (and for efficiency, responsiveness, and code componentization)
+- [SASS](https://sass-lang.com/) for variables and nesting the CSS
+- [Axios](https://github.com/axios/axios) for HTTP requests
+- [Random.org API](https://www.random.org/clients/http/api) for random numbers
+- [Clippy.js](https://github.com/SaraVieira/useClippy) for 📎
