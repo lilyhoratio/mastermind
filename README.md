@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/45006e28-5bc0-4d75-aa62-3025556963c0/deploy-status)](https://app.netlify.com/sites/mastermind-lily/deploys)
 
-The game is [deployed](https://mastermind-lily.netlify.com/) on Netlify, but I recommend checking out the version on [CodeSandbox](https://codesandbox.io/s/github/lilyhoratio/mastermind) due to small Netlify issues in loading animations.
+The game is [deployed](https://mastermind-lily.netlify.com/) on Netlify, but I recommend running locally or checking out the version on [CodeSandbox](https://codesandbox.io/s/github/lilyhoratio/mastermind) due to small Netlify issues in loading animations.
 
 ## Table of Contents
 
