@@ -208,8 +208,7 @@ export function useRandomInteger() {
       .getRandomIntegers()
       .then(res => {
         let rawIntegers = res.data;
-        // let cleanedIntegers = convertStringToIntArray(rawIntegers, "\n");
-        let cleanedIntegers = rawIntegers.split("\n").map(int => parseInt(int));
+        let cleanedIntegers = convertStringToIntArray(rawIntegers, "\n");
         cleanedIntegers.pop(); // remove last element due to extra \n separator
         setIsLoading(true);
         setData(cleanedIntegers);
@@ -415,12 +414,13 @@ The SASS for the animation-related classes was as follows:
 With more time, I would love to add the following:
 
 - Unit tests
-- Make the getRandomInteger function reusable with ability to pass in parameters for min digit, max digit, and number of digits.
+- Mobile-responsive
 - Create pop-up that displays the `error` if API is down.
 - Break out the SASS files into different components, rather than have them all in App.scss
-- Mobile-responsive
 - Refactor more custom hooks for toggling boolean hooks (guide: https://daveceddia.com/custom-hooks/)
 - Fix Bug: if user initially has 15 guesses total, guesses 11 times, and then changes their total guesses to 10, the app breaks
+- Toggle for light/dark mode
+- Loading state when generating a new API - create a helper function that resets all state in game on "generate new code" button. Right now, I am hacking this by simlpy reloading the window.
 
 ## Tech Stack
 
