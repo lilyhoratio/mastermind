@@ -7,14 +7,19 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
   const [ghostText, setGhostText] = useState("");
 
   const handleChange = e => {
-    if (e.target.value.match(/\D/)) {
+    let inputValue = e.target.value;
+    if (inputValue.match(/\D/)) {
       setGhostText("only numbers allowed!!!");
       setAppear(true);
-    } else if (e.target.value.match(/[8-9]/)) {
-      setGhostText(`${e.target.value} is not between 0-7!!!`);
+    } else if (inputValue.match(/[8-9]/)) {
+      // get last value of inputValue which triggers this to prevent incorrect conditional text:
+      // e.g. user types "29" should not show text of "29 is not between 0-7!!!"
+      setGhostText(
+        `${inputValue.slice(inputValue.length - 1)} is not between 0-7!!!`
+      );
       setAppear(true);
     } else {
-      setGuess(e.target.value);
+      setGuess(inputValue);
     }
   };
 

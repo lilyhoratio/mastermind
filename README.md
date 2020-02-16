@@ -420,6 +420,7 @@ With more time, I would love to add the following:
 - Break out the SASS files into different components, rather than have them all in App.scss
 - Mobile-responsive
 - Refactor more custom hooks for toggling boolean hooks (guide: https://daveceddia.com/custom-hooks/)
+- Fix Bug: if user initially has 15 guesses total, guesses 11 times, and then changes their total guesses to 10, the app breaks
 
 ## Tech Stack
 
