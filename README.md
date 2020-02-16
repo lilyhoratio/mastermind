@@ -420,7 +420,7 @@ With more time, I would love to add the following:
 - Refactor more custom hooks for toggling boolean hooks (guide: https://daveceddia.com/custom-hooks/)
 - Fix Bug: if user initially has 15 guesses total, guesses 11 times, and then changes their total guesses to 10, the app breaks
 - Toggle for light/dark mode
-- Loading state when generating a new API - create a helper function that resets all state in game on "generate new code" button. Right now, I am hacking this by simlpy reloading the window.
+- Loading state when generating a new API - create a helper function that resets all state in game on "generate new code" button. Right now, I am hacking this by simply reloading the window.
 
 ## Tech Stack
 
