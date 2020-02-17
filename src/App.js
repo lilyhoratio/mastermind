@@ -10,8 +10,13 @@ import Modal from "./components/Modal";
 import { convertStringToIntArray } from "./services/helpers";
 import { useRandomInteger } from "./hooks/useRandomInteger";
 
+// ======= Business Logic
+import { countFuzzyAndExactMatches } from "./services/logic";
+
 // ======= Variables
 import { integerAPIParams } from "./services/variables";
+
+// ======= Styling/Misc Libraries
 
 import "./App.scss";
 import { useClippy } from "use-clippy-now";
@@ -31,47 +36,19 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ======= Helper function algorithm to count the number of fuzzy and exact matches
-  const countFuzzyAndExactMatches = (guess, code) => {
-    let fuzzyMatch = 0;
-    let exactMatch = 0;
-
-    // Check for exact matches by comparing each index's element of guess to the analogous one in code
-    // For matches, mark them as seen by updating element to null so that the next for loop
-    // does not inflate fuzzy matches when guess contains duplicate digits that are in code
-    // For example: if code = 4322 and guess = 2222, should expect exactMatch = 2 && fuzzyMatch = 0 (rather than fuzzyMatch = 2)
-    for (let i = 0; i < code.length; i++) {
-      if (guess[i] === code[i]) {
-        exactMatch++;
-        guess[i] = null;
-        code[i] = null;
-      }
-    }
-
-    // Check for fuzzy matches by checking if the guess element is included in the code and is not an exact match
-    // For fuzzy matches, mark already seen digits from the code as seen by updating element to null so that they are not double counted
-    // For example: if code = 0223 and guess = 2022, should expect exactMatch = 1 && fuzzyMatch = 2 (rather than fuzzyMatch = 3)
-    for (let i = 0; i < code.length; i++) {
-      if (code.includes(guess[i]) && guess[i] !== code[i]) {
-        fuzzyMatch++;
-        code[code.indexOf(guess[i])] = null;
-      }
-    }
-
-    return { fuzzyMatch, exactMatch };
-  };
-
   // ======= Algorithm to determine computer's feedback based on user's input
   const getComputerFeedback = guess => {
     let feedback = "";
     let guessCopy = convertStringToIntArray(guess);
     let codeCopy = [...code];
 
+    // business logic to count fuzzy vs. exact match in separate handler function
     const { fuzzyMatch, exactMatch } = countFuzzyAndExactMatches(
       guessCopy,
       codeCopy
     );
 
+    // presentational logic to display computer feedback
     if (exactMatch === codeCopy.length) {
       feedback = "you win";
       setIsGameOver(true);
