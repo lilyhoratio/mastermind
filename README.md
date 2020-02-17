@@ -415,11 +415,58 @@ The SASS for the animation-related classes was as follows:
 }
 ```
 
+### Unit Test
+
+I added a unit test for the JavaScript helper method, and didn't have time to test the React components.
+
+```js
+test("convertStringToArray converts a string with separators to an array of integers", () => {
+  //   expect(convertStringToIntArray("1, 2, 3, 10", ",")).toEqual([1, 2, 3, 4]); // started with failing test
+
+  expect(convertStringToIntArray("1, 2, 3, 4", ",")).toEqual([1, 2, 3, 4]);
+
+  expect(convertStringToIntArray("1\n2\n3\n4", "\n")).toEqual([1, 2, 3, 4]);
+
+  expect(convertStringToIntArray("1\t2\t3\t4", "\t")).toEqual([1, 2, 3, 4]);
+});
+```
+
+The following resulted in an error, but I attempted to check the form input:
+
+```js
+import React from "react";
+import { render, fireEvent } from "@testing-library/react";
+import GuessInput from "./GuessInput";
+
+const setup = () => {
+  const utils = render(<GuessInput />);
+  const input = utils.getByLabelText("guess-input");
+  return {
+    input,
+    ...utils
+  };
+};
+
+test("It should not allow letters to be inputted", () => {
+  const { input } = setup();
+  expect(input.value).toBe(""); // empty before
+  fireEvent.change(input, { target: { value: "e" } });
+  expect(input.value).toBe(""); //empty after
+});
+```
+
+With more time, I would check the following:
+
+- guesses left decrement for each valid input
+- correct conditional text from ghost appears for invalid inputs
+- generate new code API call resets all game's state
+- correct counts of exact match and fuzzy matches based mock user inputs and mock codes
+
 ## Future Improvements
 
 With more time, I would love to add the following:
 
-- Unit tests
+- More unit tests for React components
 - Mobile-responsive
 - Create pop-up that displays the `error` if API is down.
 - Break out the SASS files into different components, rather than have them all in App.scss
