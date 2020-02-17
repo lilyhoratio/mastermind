@@ -1,8 +1,8 @@
 import React from "react";
 
 function GameStats({
+  isLoading,
   code,
-  changeCode,
   guessesAndFeedbackList,
   showCode,
   setShowCode,
@@ -19,9 +19,12 @@ function GameStats({
   return (
     <div className="game-stats">
       <div className="button integer-combo" onClick={handleClick}>
-        {showCode ? code : "► Click to view code ◄"}
+        {showCode
+          ? isLoading
+            ? code
+            : "loading code..."
+          : "► Click to view code ◄"}
       </div>
-      {/* <div className="button new-game-button" onClick={changeCode}> */}
       <div
         className="button new-game-button"
         onClick={() => window.location.reload(false)}

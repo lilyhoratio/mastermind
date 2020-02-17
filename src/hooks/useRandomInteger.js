@@ -5,7 +5,6 @@ import * as api from "../services/api";
 export function useRandomInteger(integerParams) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const changeData = () => {
     api
@@ -19,9 +18,8 @@ export function useRandomInteger(integerParams) {
       })
       .catch(err => {
         console.log(err);
-        setError(err);
       });
   };
 
-  return [data, changeData, isLoading, error];
+  return [data, changeData, isLoading];
 }

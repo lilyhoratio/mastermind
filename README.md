@@ -157,7 +157,7 @@ Setting a key and value for each if statement seemed repetitive, so I further re
 const getComputerFeedback = guess => {
   let feedback = "";
 
-  // ===== hidden ===== //
+  // ===== hidden code ===== //
 
   if (exactMatch === 4) {
     feedback = "you win";
@@ -284,7 +284,7 @@ api.getRandomIntegers().then(res => {
 });
 
 // Also used in App.js to convert the user's form input:
-guess = convertStringToIntArray(guess);
+let guessCopy = convertStringToIntArray(guess);
 ```
 
 ### Pacman Ghost animation based on invalid user inputs

@@ -23,9 +23,7 @@ function App() {
   const [isGameWon, setIsGameWon] = useState(false);
   const [showCode, setShowCode] = useState(false);
   const [allowedGuesses, setAllowedGuesses] = useState("10");
-  const [code, changeCode, isLoading, error] = useRandomInteger(
-    integerAPIParams
-  );
+  const [code, changeCode, isLoading] = useRandomInteger(integerAPIParams);
 
   useEffect(() => {
     changeCode();
@@ -91,6 +89,7 @@ function App() {
           setAllowedGuesses={setAllowedGuesses}
         />
         <GameStats
+          isLoading={isLoading}
           code={code}
           changeCode={changeCode}
           guessesAndFeedbackList={guessesAndFeedbackList}
