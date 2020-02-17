@@ -58,11 +58,9 @@ Extra features:
   - enters nothing
   - enters guess with more than 4 digits
 
-![Error-handling](error-handling.gif)
-
 - [x] Clippy (📎) animation when user wants to change difficulty, which prompts the user to change the number of max tries allowed. Changing the max tries resets state for number of guesses remaining.
 
-![change-max-attempts](change-max-attempts.gif)
+![Error-handling](error-handling.gif)
 
 ## Application Structure
 
@@ -144,7 +142,7 @@ const countFuzzyAndExactMatches = (guess, code) => {
 
 // ======= Algorithm to determine computer's feedback based on user's input
 const getComputerFeedback = guess => {
-  let feedback = "";
+  let guessAndFeedback = { guess: guess };
   let guessCopy = convertStringToIntArray(guess);
   let codeCopy = [...code];
 
