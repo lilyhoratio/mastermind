@@ -11,6 +11,7 @@ The game is [deployed](https://mastermind-lily.netlify.com/) on Netlify, but I r
 - [Features](#features)
 - [Application Structure](#application-structure)
 - [Code Refactoring Highlights](#Code-refactoring-highlights)
+- [Unit Tests](#unit-tests)
 - [Future Improvements](#future-improvements)
 - [Tech stack](#tech-stack)
 
@@ -426,9 +427,9 @@ The SASS for the animation-related classes was as follows:
 }
 ```
 
-### Unit Test
+## Unit Tests
 
-I added a unit test for the JavaScript helper method, and didn't have time to test the React components.
+Testing the helper method:
 
 ```js
 test("convertStringToArray converts a string with separators to an array of integers", () => {
@@ -442,45 +443,63 @@ test("convertStringToArray converts a string with separators to an array of inte
 });
 ```
 
-The following resulted in an error, but I attempted to check the form input:
+Testing the business logic of counting the exact vs. fuzzy matches:
 
 ```js
-import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import GuessInput from "./GuessInput";
+import { countFuzzyAndExactMatches } from "./logic.js";
 
-const setup = () => {
-  const utils = render(<GuessInput />);
-  const input = utils.getByLabelText("guess-input");
-  return {
-    input,
-    ...utils
-  };
-};
+describe("countFuzzyAndExactMatches()", () => {
+  test("if guess and code have no elements in common", () => {
+    expect(countFuzzyAndExactMatches([1, 1, 2, 2], [3, 4, 5, 6])).toEqual({
+      fuzzyMatch: 0,
+      exactMatch: 0
+    });
+  });
 
-test("It should not allow letters to be inputted", () => {
-  const { input } = setup();
-  expect(input.value).toBe(""); // empty before
-  fireEvent.change(input, { target: { value: "e" } });
-  expect(input.value).toBe(""); //empty after
+  test("if guess is exactly the code", () => {
+    expect(countFuzzyAndExactMatches([1, 2, 5, 5], [1, 2, 5, 5])).toEqual({
+      fuzzyMatch: 0,
+      exactMatch: 4
+    });
+  });
+
+  test("if guess is all fuzzy matches", () => {
+    expect(countFuzzyAndExactMatches([1, 2, 3, 4], [4, 3, 2, 1])).toEqual({
+      fuzzyMatch: 4,
+      exactMatch: 0
+    });
+  });
+
+  test("if guess contains duplicate digits that occur in code, do not inflate fuzzy matches", () => {
+    expect(countFuzzyAndExactMatches([4, 3, 2, 2], [2, 2, 2, 2])).toEqual({
+      fuzzyMatch: 0,
+      exactMatch: 2
+    });
+  });
+
+  test("if guess contains duplicate digits that occur in code, do not inflate fuzzy matches", () => {
+    expect(countFuzzyAndExactMatches([0, 2, 2, 3], [2, 0, 2, 2])).toEqual({
+      fuzzyMatch: 2,
+      exactMatch: 1
+    });
+  });
 });
 ```
 
-With more time, I would check the following:
+With more time, I would like to test the following, perhaps using the Cypress UI testing library:
 
 - guesses left decrement for each valid input
 - correct conditional text from ghost appears for invalid inputs
 - generate new code API call resets all game's state
-- correct counts of exact match and fuzzy matches based mock user inputs and mock codes
+- test API to expect certain response
 
 ## Future Improvements
 
 With more time, I would love to add the following:
 
-- More unit tests for React components
 - Mobile-responsive
 - Create pop-up that displays the `error` if API is down.
-- Break out the SASS files into different components, rather than have them all in App.scss
+- Break out the SASS files into different components, rather than all in App.scss
 - Refactor more custom hooks for toggling boolean hooks (guide: https://daveceddia.com/custom-hooks/)
 - Fix Bug: if user initially has 15 guesses total, guesses 11 times, and then changes their total guesses to 10, the app breaks
 - Toggle for light/dark mode
