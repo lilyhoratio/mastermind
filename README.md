@@ -109,7 +109,7 @@ const getComputerFeedback = guess => {
 };
 ```
 
-This is my fix for to calculate the correct counts of exact vs. fuzzy matches to account for duplicate digits in the guess and code. I also broke out the main logic to get the correct counts in a helper function:
+This is my fix for to calculate the correct counts of exact vs. fuzzy matches to account for duplicate digits in the guess and code. I also broke out the main business logic to get the correct counts in a helper function separate from the React visual component:
 
 ```javascript
 // ======= Helper function to count the number of fuzzy and exact matches
