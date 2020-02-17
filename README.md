@@ -77,7 +77,42 @@ My first implementation had a bug in counting the exact match vs. fuzzy match of
 
 ```javascript
 const getComputerFeedback = guess => {
-  let feedback = "";
+  let guessAndFeedback = { guess: guess };
+  let fuzzyMatch = 0;
+  let exactMatch = 0;
+
+  for (let i = 0; i < guess.length; i++) {
+    if (guess[i] === integerCombo[i]) {
+      exactMatch++;
+    }
+    if (integerComboCopyArr.includes(guess[i])) {
+      fuzzyMatch++;
+    }
+  }
+
+  fuzzyMatch = fuzzyMatch - exactMatch;
+
+  if (exactMatch === 4) {
+    guessAndFeedback["feedback"] = "you win";
+    setIsGameOver(true);
+    setIsGameWon(true);
+  } else if (fuzzyMatch === 0 && exactMatch === 0) {
+    guessAndFeedback["feedback"] = "all incorrect";
+  } else {
+    guessAndFeedback[
+      "feedback"
+    ] = `correct location: ${exactMatch}, correct digit: ${fuzzyMatch}`;
+  }
+
+  return guessAndFeedback;
+};
+```
+
+This is my fix for calculating the correct counts of exact vs. fuzzy matches to account for duplicate digits:
+
+```javascript
+const getComputerFeedback = guess => {
+  let guessAndFeedback = { guess: guess };
   let fuzzyMatch = 0;
   let exactMatch = 0;
 
@@ -100,47 +135,6 @@ const getComputerFeedback = guess => {
   // For fuzzy matches, mark already seen digits from the codeCopy as seen by updating element to null so that they are not double counted
   // For example: if codeCopy = 0223 and guessCopy = 2022, should expect exactMatch = 1 && fuzzyMatch = 2 (rather than fuzzyMatch = 3)
   for (let i = 0; i < codeCopy.length; i++) {
-    if (codeCopy.includes(guessCopy[i]) && guessCopy[i] !== codeCopy[i]) {
-      fuzzyMatch++;
-      codeCopy[codeCopy.indexOf(guessCopy[i])] = null;
-    }
-  }
-
-  if (exactMatch === codeCopy.length) {
-    feedback = "you win";
-    setIsGameOver(true);
-    setIsGameWon(true);
-  } else if (fuzzyMatch === 0 && exactMatch === 0) {
-    feedback = "all incorrect";
-  } else {
-    feedback = `exact match === ${exactMatch} && fuzzy match === ${fuzzyMatch}`;
-  }
-
-  return { guess, feedback };
-};
-```
-
-This is my fix for calculating the correct counts of exact vs. fuzzy matches to account for duplicate digits:
-
-```javascript
-const getComputerFeedback = guess => {
-  let guessAndFeedback = { guess: guess };
-  let fuzzyMatch = 0;
-  let exactMatch = 0;
-
-  let guessCopy = convertStringToIntArray(guess);
-  let codeCopy = [...code];
-
-  // Get the count of exact matches. Remove any matching elements from both the codeCopy & guess
-  for (let i = 0; i < guess.length; i++) {
-    if (guessCopy[i] === codeCopy[i]) {
-      exactMatch++;
-      guessCopy[i] = null;
-      codeCopy[i] = null;
-    }
-  }
-
-  for (let i = 0; i < guessCopy.length; i++) {
     if (codeCopy.includes(guessCopy[i]) && guessCopy[i] !== codeCopy[i]) {
       fuzzyMatch++;
       codeCopy[codeCopy.indexOf(guessCopy[i])] = null;
