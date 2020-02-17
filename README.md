@@ -58,7 +58,7 @@ Extra features:
   - enters nothing
   - enters guess with more than 4 digits
 
-- [x] Clippy (📎) animation when user wants to change difficulty, which prompts the user to change the number of max tries allowed. Changing the max tries resets state for number of guesses remaining.
+- [x] Clippy (📎) animation when user wants to change difficulty, which prompts the user to change the number of max tries allowed.
 
 ![Error-handling](error-handling.gif)
 
@@ -378,54 +378,9 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
 export default PlayerGuessInput;
 ```
 
-The SASS for the animation-related classes was as follows:
-
-```scss
-.ghost-container {
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  display: flex;
-  flex-direction: row;
-  animation: ghostappears 4s ease;
-
-  #ghost {
-    width: 100px;
-    height: auto;
-  }
-
-  #ghost-rawr {
-    color: red;
-    font-weight: bold;
-    z-index: 999;
-  }
-}
-
-.ghost-container-hidden {
-  opacity: 0%;
-}
-
-@keyframes ghostappears {
-  0% {
-    opacity: 10%;
-    transform: translateY(100px);
-  }
-  20% {
-    opacity: 100%;
-    transform: translateY(0px);
-  }
-  50% {
-    opacity: 100%;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 10%;
-    transform: translateY(100px);
-  }
-}
-```
-
 ## Unit Tests
+
+To run the tests, execute `yarn test` from the main directory.
 
 Testing the helper method:
 
@@ -493,15 +448,16 @@ With more time, I would like to test the following, perhaps using the Cypress UI
 
 ## Future Improvements
 
-With more time, I would love to add the following:
+With more time, I would love to add the following features:
 
-- Mobile-responsive
+- Mobile-responsiveness
 - Create pop-up that displays the `error` if API is down.
-- Break out the SASS files into different components, rather than all in App.scss
-- Refactor more custom hooks for toggling boolean hooks (guide: https://daveceddia.com/custom-hooks/)
-- Fix Bug: if user initially has 15 guesses total, guesses 11 times, and then changes their total guesses to 10, the app breaks
+- Break out the SASS in App.scss into different components
+- Create a custom hook for common operations such as toggling boolean states (guide: https://daveceddia.com/custom-hooks/)
+- Fix game bug: if user initially has 15 guesses total, guesses 11 times, and then changes their total guesses to 10, the app breaks
 - Toggle for light/dark mode
 - Loading state when generating a new API - create a helper function that resets all state in game on "generate new code" button. Right now, I am hacking this by simply reloading the window.
+- Keep track of win vs. lost score within localStorage
 
 ## Tech Stack
 
@@ -510,3 +466,8 @@ With more time, I would love to add the following:
 - [Axios](https://github.com/axios/axios) for HTTP requests
 - [Random.org API](https://www.random.org/clients/http/api) for random numbers
 - [Clippy.js](https://github.com/SaraVieira/useClippy) for 📎
+
+## Author
+
+[Lily Zhou](www.linkedin.com/in/lilyhzhou)
+[Personal site](http://lilyhzhou.com)

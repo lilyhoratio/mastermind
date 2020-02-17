@@ -30,6 +30,19 @@ $terminal-light-blue: #00cccc;
 
 .button {
   cursor: pointer;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+
+    &:hover::before {
+      content: "► ";
+    }
+
+    &:hover::after {
+      content: " ◄";
+    }
+  }
 }
 
 // Thanks to https://css-tricks.com/snippets/css/typewriter-effect/
@@ -96,12 +109,40 @@ $terminal-light-blue: #00cccc;
     flex-direction: column;
     justify-content: space-evenly;
     text-align: center;
+
+    .new-game-button {
+      &:hover {
+        transform: scale(1.07);
+
+        &:hover::before {
+          content: "↻ ";
+        }
+
+        &:hover::after {
+          content: " ↻";
+        }
+      }
+    }
     .guesses-remaining {
       font-size: 2rem;
     }
 
     .hearts {
       color: red;
+    }
+
+    .clippy-hint-button {
+      &:hover {
+        transform: scale(1.1);
+
+        &:hover::before {
+          content: "? ";
+        }
+
+        &:hover::after {
+          content: " ?";
+        }
+      }
     }
   }
 }

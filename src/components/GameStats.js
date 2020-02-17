@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 function GameStats({
   isLoading,
@@ -15,6 +15,7 @@ function GameStats({
 
   let guessesRemaining = allowedGuesses - guessesAndFeedbackList.length;
   let heartsRemaining = Array(guessesRemaining).fill("♥ ");
+  let [countClippyClicks, setCountClippyClicks] = useState(0);
 
   return (
     <div className="game-stats">
@@ -23,13 +24,13 @@ function GameStats({
           ? isLoading
             ? code
             : "loading code..."
-          : "► Click to view code ◄"}
+          : "Click to view code"}
       </div>
       <div
         className="button new-game-button"
         onClick={() => window.location.reload(false)}
       >
-        ↻ Generate new code ↻
+        Generate new code
       </div>
       <div className="guesses-remaining">{guessesRemaining} guesses left</div>
       <div className="hearts">
@@ -38,16 +39,21 @@ function GameStats({
         ))}
       </div>
       <div
-        className="button"
+        className="button clippy-hint-button"
         onClick={() =>
-          withClippy(clippy =>
-            clippy.speak(
-              "Change difficulty by clicking on the # of tries under instructions."
-            )
-          )
+          withClippy(clippy => {
+            if (countClippyClicks % 5 === 0) {
+              clippy.speak(
+                "Change difficulty by clicking on the # of tries under instructions."
+              );
+            } else {
+              clippy.animate();
+            }
+            setCountClippyClicks(countClippyClicks + 1);
+          })
         }
       >
-        Change difficulty
+        Clippy Hint
       </div>
     </div>
   );
