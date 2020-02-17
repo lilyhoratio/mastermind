@@ -101,45 +101,56 @@ const getComputerFeedback = guess => {
   } else {
     guessAndFeedback[
       "feedback"
-    ] = `correct location: ${exactMatch}, correct digit: ${fuzzyMatch}`;
+    ] = `exact match: ${exactMatch}, fuzzy match: ${fuzzyMatch}`;
   }
 
   return guessAndFeedback;
 };
 ```
 
-This is my fix for calculating the correct counts of exact vs. fuzzy matches to account for duplicate digits:
+This is my fix for to calculate the correct counts of exact vs. fuzzy matches to account for duplicate digits in the guess and code. I also broke out the main logic to get the correct counts in a helper function:
 
 ```javascript
-const getComputerFeedback = guess => {
-  let guessAndFeedback = { guess: guess };
+// ======= Helper function to count the number of fuzzy and exact matches
+const countFuzzyAndExactMatches = (guess, code) => {
   let fuzzyMatch = 0;
   let exactMatch = 0;
 
+  // Check for exact matches by comparing each index's element of guess to the analogous one in code
+  // For matches, mark them as seen by updating element to null so that the next for loop
+  // does not inflate fuzzy matches when guess contains duplicate digits that are in code
+  // For example: if code = 4322 and guess = 2222, should expect exactMatch = 2 && fuzzyMatch = 0 (rather than fuzzyMatch = 2)
+  for (let i = 0; i < code.length; i++) {
+    if (guess[i] === code[i]) {
+      exactMatch++;
+      guess[i] = null;
+      code[i] = null;
+    }
+  }
+
+  // Check for fuzzy matches by checking if the guess element is included in the code and is not an exact match
+  // For fuzzy matches, mark already seen digits from the code as seen by updating element to null so that they are not double counted
+  // For example: if code = 0223 and guess = 2022, should expect exactMatch = 1 && fuzzyMatch = 2 (rather than fuzzyMatch = 3)
+  for (let i = 0; i < code.length; i++) {
+    if (code.includes(guess[i]) && guess[i] !== code[i]) {
+      fuzzyMatch++;
+      code[code.indexOf(guess[i])] = null;
+    }
+  }
+
+  return { fuzzyMatch, exactMatch };
+};
+
+// ======= Algorithm to determine computer's feedback based on user's input
+const getComputerFeedback = guess => {
+  let feedback = "";
   let guessCopy = convertStringToIntArray(guess);
   let codeCopy = [...code];
 
-  // Check for exact matches by comparing each index's element of guessCopy to the analogous one in codeCopy
-  // For matches, mark them as seen by updating element to null so that the next for loop
-  // does not inflate fuzzy matches when guessCopy contains duplicate digits that are in codeCopy
-  // For example: if codeCopy = 4322 and guessCopy = 2222, should expect exactMatch = 2 && fuzzyMatch = 0 (rather than fuzzyMatch = 2)
-  for (let i = 0; i < codeCopy.length; i++) {
-    if (guessCopy[i] === codeCopy[i]) {
-      exactMatch++;
-      guessCopy[i] = null;
-      codeCopy[i] = null;
-    }
-  }
-
-  // Check for fuzzy matches by checking if the guessCopy element is included in the codeCopy and is not an exact match
-  // For fuzzy matches, mark already seen digits from the codeCopy as seen by updating element to null so that they are not double counted
-  // For example: if codeCopy = 0223 and guessCopy = 2022, should expect exactMatch = 1 && fuzzyMatch = 2 (rather than fuzzyMatch = 3)
-  for (let i = 0; i < codeCopy.length; i++) {
-    if (codeCopy.includes(guessCopy[i]) && guessCopy[i] !== codeCopy[i]) {
-      fuzzyMatch++;
-      codeCopy[codeCopy.indexOf(guessCopy[i])] = null;
-    }
-  }
+  const { fuzzyMatch, exactMatch } = countFuzzyAndExactMatches(
+    guessCopy,
+    codeCopy
+  );
 
   if (exactMatch === 4) {
     guessAndFeedback["feedback"] = "you win";
@@ -157,7 +168,7 @@ const getComputerFeedback = guess => {
 };
 ```
 
-Setting a key and value for each if statement seemed repetitive, so I further refactored the function into the following:
+Setting a key and value for each conditional statement seemed repetitive, so I further refactored the function into the following:
 
 ```js
 const getComputerFeedback = guess => {
