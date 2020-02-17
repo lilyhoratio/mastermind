@@ -52,7 +52,7 @@ function App() {
     }
 
     // Check for fuzzy matches by checking if the guessCopy element is included in the codeCopy and is not an exact match
-    // For fuzzy matches, remove already seen digits from the codeCopy so that they are not double counted
+    // For fuzzy matches, mark already seen digits from the codeCopy as seen by updating element to null so that they are not double counted
     // For example: if codeCopy = 0223 and guessCopy = 2022, should expect exactMatch = 1 && fuzzyMatch = 2 (rather than fuzzyMatch = 3)
     for (let i = 0; i < codeCopy.length; i++) {
       if (codeCopy.includes(guessCopy[i]) && guessCopy[i] !== codeCopy[i]) {
