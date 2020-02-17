@@ -6,15 +6,6 @@ body {
     padding 0s, margin 0s !important;
 }
 
-// body.preload *{
-//   animation-duration: 0s !important;
-//   -webkit-animation-duration: 0s !important;
-//   transition:background-color 0s, opacity 0s, color 0s, width 0s, height 0s, padding 0s, margin 0s !important;}
-
-div {
-  box-sizing: border-box;
-}
-
 a {
   color: inherit;
 }
@@ -35,6 +26,10 @@ $terminal-light-blue: #00cccc;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.button {
+  cursor: pointer;
 }
 
 // Thanks to https://css-tricks.com/snippets/css/typewriter-effect/
@@ -66,10 +61,6 @@ $terminal-light-blue: #00cccc;
   50% {
     border-color: $terminal-green;
   }
-}
-
-.button {
-  cursor: pointer;
 }
 
 // InstructionStats Wrapper

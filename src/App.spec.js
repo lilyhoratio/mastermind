@@ -7,9 +7,6 @@ describe("<App />", () => {
     render(<App />);
   });
 
-  // if("decrements guesses left with each user input", () => {
-
-  // })
   let appComp;
   let guessesLeft;
   let generateNewCode;
@@ -25,15 +22,10 @@ describe("<App />", () => {
     expect(guessesLeft).toHaveTextContent(/10/);
   });
 
-  // it("user input decrements guesses left", () => {
-  //   fireEvent.click(strike);
-  //   expect(strikeCount).toHaveTextContent(/2$/);
+  // test("It should not allow letters to be inputted", () => {
+  //   const { input } = setup();
+  //   expect(input.value).toBe(""); // empty before
+  //   fireEvent.change(input, { target: { value: "e" } });
+  //   expect(input.value).toBe(""); //empty after
   // });
-
-  test("It should not allow letters to be inputted", () => {
-    const { input } = setup();
-    expect(input.value).toBe(""); // empty before
-    fireEvent.change(input, { target: { value: "Good Day" } });
-    expect(input.value).toBe(""); //empty after
-  });
 });
