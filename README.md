@@ -77,34 +77,46 @@ My first implementation had a bug in counting the exact match vs. fuzzy match of
 
 ```javascript
 const getComputerFeedback = guess => {
-  let guessAndFeedback = { guess: guess };
+  let feedback = "";
   let fuzzyMatch = 0;
   let exactMatch = 0;
 
-  for (let i = 0; i < guess.length; i++) {
-    if (guess[i] === integerCombo[i]) {
+  let guessCopy = convertStringToIntArray(guess);
+  let codeCopy = [...code];
+
+  // Check for exact matches by comparing each index's element of guessCopy to the analogous one in codeCopy
+  // For matches, mark them as seen by updating element to null so that the next for loop
+  // does not inflate fuzzy matches when guessCopy contains duplicate digits that are in codeCopy
+  // For example: if codeCopy = 4322 and guessCopy = 2222, should expect exactMatch = 2 && fuzzyMatch = 0 (rather than fuzzyMatch = 2)
+  for (let i = 0; i < codeCopy.length; i++) {
+    if (guessCopy[i] === codeCopy[i]) {
       exactMatch++;
-    }
-    if (integerComboCopyArr.includes(guess[i])) {
-      fuzzyMatch++;
+      guessCopy[i] = null;
+      codeCopy[i] = null;
     }
   }
 
-  fuzzyMatch = fuzzyMatch - exactMatch;
+  // Check for fuzzy matches by checking if the guessCopy element is included in the codeCopy and is not an exact match
+  // For fuzzy matches, remove already seen digits from the codeCopy so that they are not double counted
+  // For example: if codeCopy = 0223 and guessCopy = 2022, should expect exactMatch = 1 && fuzzyMatch = 2 (rather than fuzzyMatch = 3)
+  for (let i = 0; i < codeCopy.length; i++) {
+    if (codeCopy.includes(guessCopy[i]) && guessCopy[i] !== codeCopy[i]) {
+      fuzzyMatch++;
+      codeCopy[codeCopy.indexOf(guessCopy[i])] = null;
+    }
+  }
 
-  if (exactMatch === 4) {
-    guessAndFeedback["feedback"] = "you win";
+  if (exactMatch === codeCopy.length) {
+    feedback = "you win";
     setIsGameOver(true);
     setIsGameWon(true);
   } else if (fuzzyMatch === 0 && exactMatch === 0) {
-    guessAndFeedback["feedback"] = "all incorrect";
+    feedback = "all incorrect";
   } else {
-    guessAndFeedback[
-      "feedback"
-    ] = `correct location: ${exactMatch}, correct digit: ${fuzzyMatch}`;
+    feedback = `exact match === ${exactMatch} && fuzzy match === ${fuzzyMatch}`;
   }
 
-  return guessAndFeedback;
+  return { guess, feedback };
 };
 ```
 
