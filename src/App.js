@@ -5,6 +5,7 @@ import GuessHistory from "./components/GuessHistory";
 import GuessInput from "./components/GuessInput";
 import GameStats from "./components/GameStats";
 import Modal from "./components/Modal";
+import GameDifficultyForm from "./components/GameDifficultyForm";
 
 // ======= Helpers
 import { convertStringToIntArray } from "./services/helpers";
@@ -28,13 +29,29 @@ function App() {
   const [isGameWon, setIsGameWon] = useState(false);
   const [showCode, setShowCode] = useState(false);
   const [allowedGuesses, setAllowedGuesses] = useState("10");
-  const [code, changeCode, isLoading] = useRandomInteger(integerAPIParams);
+  const [difficulty, setDifficulty] = useState({
+    maxDigitInCode: 7,
+    totalDigitsInCode: 4
+  });
+  const [code, changeCode, isLoading] = useRandomInteger(difficulty);
+  const [allCodes, setAllCodes] = useState([]);
   const withClippy = useClippy("Clippy");
 
-  useEffect(() => {
+  const resetGame = () => {
+    setGuessesAndFeedbackList([]);
+    setShowCode(false);
+    setAllowedGuesses("10");
+    setAllCodes([...allCodes, { code, isGameWon }]);
+    setIsGameWon(false);
+    setIsGameOver(false);
     changeCode();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    console.log("allCodes:", allCodes);
+  };
+
+  // useEffect(() => {
+  //   changeCode();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // ======= Algorithm to determine computer's feedback based on user's input
   const getComputerFeedback = guess => {
@@ -79,10 +96,12 @@ function App() {
       <h1 className="typewriter">Mastermind</h1>
       <div className="instructions-and-stats">
         <Instructions
+          difficulty={difficulty}
           allowedGuesses={allowedGuesses}
           setAllowedGuesses={setAllowedGuesses}
         />
         <GameStats
+          resetGame={resetGame}
           isLoading={isLoading}
           code={code}
           changeCode={changeCode}
@@ -100,7 +119,9 @@ function App() {
         isGameWon={isGameWon}
         code={code}
         changeCode={changeCode}
+        resetGame={resetGame}
       />
+      <GameDifficultyForm setDifficulty={setDifficulty} />
     </div>
   );
 }

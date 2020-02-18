@@ -27,5 +27,3 @@ export function countFuzzyAndExactMatches(guess, code) {
 
   return { fuzzyMatch, exactMatch };
 }
-
-console.log(countFuzzyAndExactMatches([1, 2, 3, 4], [5, 6, 7, 8]));

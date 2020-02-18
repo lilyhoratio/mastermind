@@ -7,7 +7,8 @@ function GameStats({
   showCode,
   setShowCode,
   withClippy,
-  allowedGuesses
+  allowedGuesses,
+  resetGame
 }) {
   const handleClick = () => {
     setShowCode(!showCode);
@@ -28,7 +29,8 @@ function GameStats({
       </div>
       <div
         className="button new-game-button"
-        onClick={() => window.location.reload(false)}
+        // onClick={() => window.location.reload(false)}
+        onClick={resetGame}
       >
         Generate new code
       </div>

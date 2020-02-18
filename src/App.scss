@@ -28,6 +28,8 @@ $terminal-light-blue: #00cccc;
   align-items: center;
 }
 
+// BEM convention: .button_text--green
+// similar to mixin
 .button {
   cursor: pointer;
   transition: all 0.1s ease-in-out;
