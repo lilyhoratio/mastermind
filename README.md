@@ -458,6 +458,7 @@ With more time, I would love to add the following features:
 - Toggle for light/dark mode
 - Loading state when generating a new API - create a helper function that resets all state in game on "generate new code" button. Right now, I am hacking this by simply reloading the window.
 - Keep track of win vs. lost score within localStorage
+- Incorporate backend / database to persist data (username, scores, etc.) for users
 
 ## Tech Stack
 

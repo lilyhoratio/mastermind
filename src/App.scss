@@ -112,8 +112,6 @@ $terminal-light-blue: #00cccc;
 
     .new-game-button {
       &:hover {
-        transform: scale(1.07);
-
         &:hover::before {
           content: "↻ ";
         }
@@ -133,8 +131,6 @@ $terminal-light-blue: #00cccc;
 
     .clippy-hint-button {
       &:hover {
-        transform: scale(1.1);
-
         &:hover::before {
           content: "? ";
         }
