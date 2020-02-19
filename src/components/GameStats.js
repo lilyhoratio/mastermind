@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import GameDifficultyForm from "./GameDifficultyForm";
 
 function GameStats({
-  isLoading,
+  // isLoading,
   code,
   guessesAndFeedbackList,
   showCode,
@@ -31,7 +31,8 @@ function GameStats({
         Restart Game
       </div>
       <div className="button integer-combo" onClick={handleClick}>
-        {showCode ? (isLoading ? code : "loading...") : "View Code"}
+        {/* {showCode ? (isLoading ? code : "loading...") : "View Code"} */}
+        {showCode ? code : "View Code"}
       </div>
       <div className="guesses-remaining">{guessesRemaining} guesses left</div>
       <div className="hearts">

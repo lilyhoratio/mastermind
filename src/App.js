@@ -32,7 +32,7 @@ function App() {
     maxDigitInCode: 7,
     totalDigitsInCode: 4
   });
-  const [code, changeCode, isLoading] = useRandomInteger(difficulty);
+  const [code, changeCode /*, isLoading*/] = useRandomInteger(difficulty);
   const [allCodes, setAllCodes] = useState([]);
   const [temporaryStyle, setTemporaryStyle] = useState("");
   const withClippy = useClippy("Clippy");
@@ -51,7 +51,7 @@ function App() {
   useEffect(() => {
     changeCode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [difficulty.maxDigitInCode, difficulty.totalDigitsInCode]); // with edits
+  }, [difficulty.maxDigitInCode, difficulty.totalDigitsInCode]);
   // }, []);
 
   // ======= Algorithm to determine computer's feedback based on user's input
@@ -104,7 +104,7 @@ function App() {
         />
         <GameStats
           resetGame={resetGame}
-          isLoading={isLoading}
+          // isLoading={isLoading}
           code={code}
           changeCode={changeCode}
           guessesAndFeedbackList={guessesAndFeedbackList}
