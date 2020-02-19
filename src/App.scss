@@ -194,7 +194,7 @@ select {
 }
 
 // Modal.js
-.modal {
+.modal-container {
   border: 2px solid $windows-grey;
   position: fixed;
   width: 40%;
@@ -203,8 +203,9 @@ select {
   background: $windows-grey;
   transition: 1s ease-out;
   padding-bottom: 10px;
+  z-index: 10;
 
-  .modal-header {
+  .modal-heading {
     padding: 5px;
     text-align: left;
     background-color: $windows-blue;
@@ -212,7 +213,7 @@ select {
     margin: 0;
   }
 
-  .modal-content {
+  .modal-info {
     padding: 10px;
   }
 
