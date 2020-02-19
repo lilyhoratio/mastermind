@@ -15,10 +15,11 @@ import { useRandomInteger } from "./hooks/useRandomInteger";
 import { countFuzzyAndExactMatches } from "./services/logic";
 
 // ======= Variables
-import { integerAPIParams } from "./services/variables";
+// import { integerAPIParams } from "./services/variables";
 
 // ======= Styling/Misc Libraries
 
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import { useClippy } from "use-clippy-now";
 
@@ -48,9 +49,10 @@ function App() {
     console.log("allCodes:", allCodes);
   };
 
-  // useEffect(() => {
-  //   changeCode();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    changeCode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [difficulty.maxDigitInCode, difficulty.totalDigitsInCode]); // with edits
   // }, []);
 
   // ======= Algorithm to determine computer's feedback based on user's input
@@ -112,7 +114,12 @@ function App() {
           allowedGuesses={allowedGuesses}
         />
       </div>
-      <GuessInput addGuess={addGuess} isGameOver={isGameOver} />
+      <GameDifficultyForm setDifficulty={setDifficulty} />
+      <GuessInput
+        addGuess={addGuess}
+        isGameOver={isGameOver}
+        difficulty={difficulty}
+      />
       <GuessHistory guessesAndFeedbackList={guessesAndFeedbackList} />
       <Modal
         isGameOver={isGameOver}
@@ -121,7 +128,6 @@ function App() {
         changeCode={changeCode}
         resetGame={resetGame}
       />
-      <GameDifficultyForm setDifficulty={setDifficulty} />
     </div>
   );
 }
