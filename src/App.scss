@@ -1,5 +1,11 @@
+$terminal-green: #00ff00;
+$windows-grey: #d8d5cb;
+$windows-blue: #1e03a1;
+$terminal-pink: #bc00be;
+$terminal-light-blue: #00cccc;
+
 body {
-  background-color: black;
+  background-color: black; // needed to override bootstrap styling
   animation-duration: 0s !important;
   -webkit-animation-duration: 0s !important;
   transition: background-color 0s, opacity 0s, color 0s, width 0s, height 0s,
@@ -10,16 +16,24 @@ a {
   color: inherit;
 }
 
-$terminal-green: #00ff00;
-$windows-grey: #d8d5cb;
-$windows-blue: #1e03a1;
-$terminal-pink: #bc00be;
-$terminal-light-blue: #00cccc;
+select {
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+  background: none;
+  color: $terminal-green;
+  font-family: "Courier New", Courier, monospace;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -ms-appearance: none;
+}
 
 .App {
   text-align: center;
   margin: 10px auto;
-  width: 70%;
+  width: 80%;
   color: #00ff00;
   font-family: "Courier New", Courier, monospace;
   display: flex;
@@ -88,20 +102,6 @@ $terminal-light-blue: #00cccc;
   .instructions {
     width: 55%;
     padding-right: 20px;
-
-    select {
-      font-size: 1rem;
-      font-weight: bold;
-      outline: none;
-      background: none;
-      color: $terminal-green;
-      font-family: "Courier New", Courier, monospace;
-      border: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      -ms-appearance: none;
-    }
   }
   .game-stats {
     padding-left: 20px;
@@ -282,4 +282,21 @@ $terminal-light-blue: #00cccc;
     opacity: 10%;
     transform: translateY(100px);
   }
+}
+
+// GameDifficultyForm.js
+.change-difficulty {
+  background-color: black;
+  outline: none !important;
+  border: 1px dotted $terminal-green;
+  color: $terminal-green;
+  margin-bottom: 10px;
+}
+
+.difficulty-selection {
+  margin: 0 auto;
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

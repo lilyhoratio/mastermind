@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import Ghost from "../images/ghost.png";
 
-function PlayerGuessInput({ addGuess, isGameOver, difficulty }) {
+function PlayerGuessInput({
+  addGuess,
+  isGameOver,
+  difficulty,
+  temporaryStyle
+}) {
   const [guess, setGuess] = useState("");
   const [appear, setAppear] = useState(false);
   const [ghostText, setGhostText] = useState("");
@@ -41,7 +46,16 @@ function PlayerGuessInput({ addGuess, isGameOver, difficulty }) {
       <>
         <form onSubmit={handleSubmit}>
           <label>
-            Enter 4 digits (0-{difficulty.maxDigitInCode}):
+            Enter 4 digits (0-
+            <span
+              style={{
+                border: `${temporaryStyle}`
+              }}
+              className="max-digit-text"
+            >
+              {difficulty.maxDigitInCode}
+            </span>
+            ):
             <input
               type="text"
               name="guess"

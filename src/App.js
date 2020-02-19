@@ -5,7 +5,6 @@ import GuessHistory from "./components/GuessHistory";
 import GuessInput from "./components/GuessInput";
 import GameStats from "./components/GameStats";
 import Modal from "./components/Modal";
-import GameDifficultyForm from "./components/GameDifficultyForm";
 
 // ======= Helpers
 import { convertStringToIntArray } from "./services/helpers";
@@ -18,8 +17,7 @@ import { countFuzzyAndExactMatches } from "./services/logic";
 // import { integerAPIParams } from "./services/variables";
 
 // ======= Styling/Misc Libraries
-
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import { useClippy } from "use-clippy-now";
 
@@ -36,6 +34,7 @@ function App() {
   });
   const [code, changeCode, isLoading] = useRandomInteger(difficulty);
   const [allCodes, setAllCodes] = useState([]);
+  const [temporaryStyle, setTemporaryStyle] = useState("");
   const withClippy = useClippy("Clippy");
 
   const resetGame = () => {
@@ -101,6 +100,7 @@ function App() {
           difficulty={difficulty}
           allowedGuesses={allowedGuesses}
           setAllowedGuesses={setAllowedGuesses}
+          temporaryStyle={temporaryStyle}
         />
         <GameStats
           resetGame={resetGame}
@@ -112,13 +112,15 @@ function App() {
           setShowCode={setShowCode}
           withClippy={withClippy}
           allowedGuesses={allowedGuesses}
+          setDifficulty={setDifficulty}
+          setTemporaryStyle={setTemporaryStyle}
         />
       </div>
-      <GameDifficultyForm setDifficulty={setDifficulty} />
       <GuessInput
         addGuess={addGuess}
         isGameOver={isGameOver}
         difficulty={difficulty}
+        temporaryStyle={temporaryStyle}
       />
       <GuessHistory guessesAndFeedbackList={guessesAndFeedbackList} />
       <Modal

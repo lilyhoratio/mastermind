@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import GameDifficultyForm from "./GameDifficultyForm";
 
 function GameStats({
   isLoading,
@@ -8,7 +9,9 @@ function GameStats({
   setShowCode,
   withClippy,
   allowedGuesses,
-  resetGame
+  resetGame,
+  setDifficulty,
+  setTemporaryStyle
 }) {
   const handleClick = () => {
     setShowCode(!showCode);
@@ -57,6 +60,10 @@ function GameStats({
       >
         Clippy Hint
       </div>
+      <GameDifficultyForm
+        setDifficulty={setDifficulty}
+        setTemporaryStyle={setTemporaryStyle}
+      />
     </div>
   );
 }
