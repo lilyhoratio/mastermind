@@ -14,10 +14,10 @@ import { useRandomInteger } from "./hooks/useRandomInteger";
 import { countFuzzyAndExactMatches } from "./services/logic";
 
 // ======= Variables
-import { integerAPIParams } from "./services/variables";
+// import { integerAPIParams } from "./services/variables";
 
 // ======= Styling/Misc Libraries
-
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import { useClippy } from "use-clippy-now";
 
@@ -28,13 +28,31 @@ function App() {
   const [isGameWon, setIsGameWon] = useState(false);
   const [showCode, setShowCode] = useState(false);
   const [allowedGuesses, setAllowedGuesses] = useState("10");
-  const [code, changeCode, isLoading] = useRandomInteger(integerAPIParams);
+  const [difficulty, setDifficulty] = useState({
+    maxDigitInCode: 7,
+    totalDigitsInCode: 4
+  });
+  const [code, changeCode, isLoading] = useRandomInteger(difficulty);
+  const [allCodes, setAllCodes] = useState([]);
+  const [temporaryStyle, setTemporaryStyle] = useState("");
   const withClippy = useClippy("Clippy");
+
+  const resetGame = () => {
+    setGuessesAndFeedbackList([]);
+    setShowCode(false);
+    setAllowedGuesses("10");
+    setAllCodes([...allCodes, { code, isGameWon }]);
+    setIsGameWon(false);
+    setIsGameOver(false);
+    changeCode();
+    console.log("allCodes:", allCodes);
+  };
 
   useEffect(() => {
     changeCode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [difficulty.maxDigitInCode, difficulty.totalDigitsInCode]); // with edits
+  // }, []);
 
   // ======= Algorithm to determine computer's feedback based on user's input
   const getComputerFeedback = guess => {
@@ -79,10 +97,13 @@ function App() {
       <h1 className="typewriter">Mastermind</h1>
       <div className="instructions-and-stats">
         <Instructions
+          difficulty={difficulty}
           allowedGuesses={allowedGuesses}
           setAllowedGuesses={setAllowedGuesses}
+          temporaryStyle={temporaryStyle}
         />
         <GameStats
+          resetGame={resetGame}
           isLoading={isLoading}
           code={code}
           changeCode={changeCode}
@@ -91,15 +112,23 @@ function App() {
           setShowCode={setShowCode}
           withClippy={withClippy}
           allowedGuesses={allowedGuesses}
+          setDifficulty={setDifficulty}
+          setTemporaryStyle={setTemporaryStyle}
         />
       </div>
-      <GuessInput addGuess={addGuess} isGameOver={isGameOver} />
+      <GuessInput
+        addGuess={addGuess}
+        isGameOver={isGameOver}
+        difficulty={difficulty}
+        temporaryStyle={temporaryStyle}
+      />
       <GuessHistory guessesAndFeedbackList={guessesAndFeedbackList} />
       <Modal
         isGameOver={isGameOver}
         isGameWon={isGameWon}
         code={code}
         changeCode={changeCode}
+        resetGame={resetGame}
       />
     </div>
   );

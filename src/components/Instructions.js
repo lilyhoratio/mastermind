@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Instructions({ allowedGuesses, setAllowedGuesses }) {
+function Instructions({ setAllowedGuesses, difficulty, temporaryStyle }) {
   const [value, setValue] = useState(10);
 
   const handleChange = e => {
@@ -11,7 +11,17 @@ function Instructions({ allowedGuesses, setAllowedGuesses }) {
     <div className="instructions">
       <h2>instructions</h2>
       <p>
-        I generated a code composed of four random digits (0-7). You have{" "}
+        I generated a code composed of{" "}
+        <span
+          className="total-digits-text"
+          style={{
+            fontWeight: "bold",
+            border: `${temporaryStyle}`
+          }}
+        >
+          {difficulty.totalDigitsInCode}
+        </span>{" "}
+        random digits (0-{difficulty.maxDigitInCode}). You have{" "}
         <span className="attempts-dropdown">
           <select value={value} onChange={handleChange}>
             <option value="10">10</option>

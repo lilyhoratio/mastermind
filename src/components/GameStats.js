@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import GameDifficultyForm from "./GameDifficultyForm";
 
 function GameStats({
   isLoading,
@@ -7,7 +8,10 @@ function GameStats({
   showCode,
   setShowCode,
   withClippy,
-  allowedGuesses
+  allowedGuesses,
+  resetGame,
+  setDifficulty,
+  setTemporaryStyle
 }) {
   const handleClick = () => {
     setShowCode(!showCode);
@@ -19,18 +23,15 @@ function GameStats({
 
   return (
     <div className="game-stats">
-      <div className="button integer-combo" onClick={handleClick}>
-        {showCode
-          ? isLoading
-            ? code
-            : "loading code..."
-          : "Click to view code"}
-      </div>
       <div
         className="button new-game-button"
-        onClick={() => window.location.reload(false)}
+        // onClick={() => window.location.reload(false)}
+        onClick={resetGame}
       >
-        Generate new code
+        Restart Game
+      </div>
+      <div className="button integer-combo" onClick={handleClick}>
+        {showCode ? (isLoading ? code : "loading...") : "View Code"}
       </div>
       <div className="guesses-remaining">{guessesRemaining} guesses left</div>
       <div className="hearts">
@@ -44,7 +45,7 @@ function GameStats({
           withClippy(clippy => {
             if (countClippyClicks % 5 === 0) {
               clippy.speak(
-                "Change difficulty by clicking on the # of tries under instructions."
+                "You can also change difficulty by clicking on the # of tries under instructions."
               );
             } else {
               clippy.animate();
@@ -53,8 +54,12 @@ function GameStats({
           })
         }
       >
-        Clippy Hint
+        Hint
       </div>
+      <GameDifficultyForm
+        setDifficulty={setDifficulty}
+        setTemporaryStyle={setTemporaryStyle}
+      />
     </div>
   );
 }

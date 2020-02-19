@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import Ghost from "../images/ghost.png";
 
-function PlayerGuessInput({ addGuess, isGameOver }) {
+function PlayerGuessInput({
+  addGuess,
+  isGameOver,
+  difficulty,
+  temporaryStyle
+}) {
   const [guess, setGuess] = useState("");
   const [appear, setAppear] = useState(false);
   const [ghostText, setGhostText] = useState("");
@@ -12,8 +17,6 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
       setGhostText("only numbers allowed!!!");
       setAppear(true);
     } else if (inputValue.match(/[8-9]/)) {
-      // get last value of inputValue which triggers this to prevent incorrect conditional text:
-      // e.g. user types "29" should not show text of "29 is not between 0-7!!!"
       setGhostText(
         `${inputValue.slice(inputValue.length - 1)} is not between 0-7!!!`
       );
@@ -43,7 +46,16 @@ function PlayerGuessInput({ addGuess, isGameOver }) {
       <>
         <form onSubmit={handleSubmit}>
           <label>
-            Enter 4 digits (0-7):
+            Enter 4 digits (0-
+            <span
+              style={{
+                border: `${temporaryStyle}`
+              }}
+              className="max-digit-text"
+            >
+              {difficulty.maxDigitInCode}
+            </span>
+            ):
             <input
               type="text"
               name="guess"
