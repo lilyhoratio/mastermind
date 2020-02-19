@@ -23,19 +23,15 @@ function GameStats({
 
   return (
     <div className="game-stats">
-      <div className="button integer-combo" onClick={handleClick}>
-        {showCode
-          ? isLoading
-            ? code
-            : "loading code..."
-          : "Click to view code"}
-      </div>
       <div
         className="button new-game-button"
         // onClick={() => window.location.reload(false)}
         onClick={resetGame}
       >
-        Generate new code
+        Restart Game
+      </div>
+      <div className="button integer-combo" onClick={handleClick}>
+        {showCode ? (isLoading ? code : "loading...") : "View Code"}
       </div>
       <div className="guesses-remaining">{guessesRemaining} guesses left</div>
       <div className="hearts">
@@ -58,7 +54,7 @@ function GameStats({
           })
         }
       >
-        Clippy Hint
+        Hint
       </div>
       <GameDifficultyForm
         setDifficulty={setDifficulty}

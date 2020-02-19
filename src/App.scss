@@ -285,12 +285,18 @@ select {
 }
 
 // GameDifficultyForm.js
-.change-difficulty {
+.change-difficulty,
+.change-difficulty-submit {
   background-color: black;
   outline: none !important;
   border: 1px dotted $terminal-green;
   color: $terminal-green;
   margin-bottom: 10px;
+}
+
+.change-difficulty-submit {
+  border: none;
+  border-bottom: 1px dotted $terminal-green;
 }
 
 .difficulty-selection {

@@ -20,7 +20,7 @@ function GameDifficultyForm({ setDifficulty, setTemporaryStyle }) {
     setDifficulty({ maxDigitInCode, totalDigitsInCode });
 
     // hacky way to highlight the updated difficulty states after form submission
-    setTemporaryStyle("2px dotted #00ff00");
+    setTemporaryStyle("2px dotted red");
     setTimeout(() => {
       setTemporaryStyle("");
     }, 2000);
@@ -56,7 +56,7 @@ function GameDifficultyForm({ setDifficulty, setTemporaryStyle }) {
               <option value="4">4</option>
             </select>
           </div>
-          <button className="change-difficulty-button">update</button>
+          <button className="button change-difficulty-submit">update</button>
         </form>
       </Accordion.Collapse>
     </Accordion>
