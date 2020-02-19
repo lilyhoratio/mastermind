@@ -15,7 +15,6 @@ export function useRandomInteger(integerParams) {
         let rawIntegers = res.data;
         let cleanedIntegers = convertStringToIntArray(rawIntegers, "\n");
         cleanedIntegers.pop(); // remove last element due to extra \n separator
-        setIsLoading(true);
         setData(cleanedIntegers);
       })
       .catch(err => {
