@@ -45,7 +45,7 @@ function GameStats({
           withClippy(clippy => {
             if (countClippyClicks % 5 === 0) {
               clippy.speak(
-                "Change difficulty by clicking on the # of tries under instructions."
+                "You can also change difficulty by clicking on the # of tries under instructions."
               );
             } else {
               clippy.animate();
