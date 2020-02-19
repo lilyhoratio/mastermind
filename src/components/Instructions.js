@@ -11,8 +11,11 @@ function Instructions({ setAllowedGuesses, difficulty }) {
     <div className="instructions">
       <h2>instructions</h2>
       <p>
-        I generated a code composed of {difficulty.totalDigitsInCode} random
-        digits (0-7). You have{" "}
+        I generated a code composed of{" "}
+        <span style={{ fontWeight: "bold" }}>
+          {difficulty.totalDigitsInCode}
+        </span>{" "}
+        random digits (0-7). You have{" "}
         <span className="attempts-dropdown">
           <select value={value} onChange={handleChange}>
             <option value="10">10</option>
