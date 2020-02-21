@@ -23,11 +23,7 @@ function GameStats({
 
   return (
     <div className="game-stats">
-      <div
-        className="button new-game-button"
-        // onClick={() => window.location.reload(false)}
-        onClick={resetGame}
-      >
+      <div className="button new-game-button" onClick={resetGame}>
         Restart Game
       </div>
       <div className="button integer-combo" onClick={handleClick}>

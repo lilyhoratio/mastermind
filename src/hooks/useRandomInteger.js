@@ -2,12 +2,12 @@ import { useState } from "react";
 import { convertStringToIntArray } from "../services/helpers";
 import * as api from "../services/api";
 
-// determine when to use API vs. Math.random() w/ new parameter (check if client has internet access)
+// Could determine when to use API vs. Math.random() w/ new parameter (whether client has internet access)
 export function useRandomInteger(integerParams) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // mocks / stubs - mock API response (= dummy data)
+  // mocks / stubs - mock API response
   const changeData = () => {
     api
       .getRandomIntegers(integerParams)

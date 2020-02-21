@@ -40,12 +40,13 @@ MVP:
 - [x] Ability to guess the combinations of 4 numbers
 - [x] Ability to view the history of guesses and their feedback
 - [x] The number of guesses remaining is displayed
+- [x] A random number is generated using the random.org API
 
 Extra features:
 
 - [x] Ability to toggle viewing the code combination for easier user testing
 - [x] Conditional rendering of won game vs. lost game pop-ups
-- [x] Ability to restart game by generating a new code combination - in pop-up when user wins or loses game, and the "Generate new code" component
+- [x] Ability to restart the game by generating a new code combination (in pop-up when user wins or loses game, and the "Generate new code" component) which resets relevant state
 - [x] Computer gives feedback after each guess with the count of exact (correct digit/location) vs. fuzzy matches (correct digit, not location)
 - [x] User is prevented from accessing the input form after guessing the correct combination or when they reach 10 tries (form disappears)
 
@@ -64,8 +65,8 @@ Extra features:
 
 - [x] Ability to update game difficulty by changing the following (in progress!):
   - [x] the number of total tries allowed
-  - [x] the max digit in the code (possible digits span from 0-5 to 0-7)
-  - [x] the total number of digits in the code
+  - [x] the max digit in the code (possible digits span from 0-5 to 0-7) --> recalls API with updated params
+  - [x] the total number of digits in the code --> recalls API with updated params
   - [x] affected state is highlighted in momentarily highlighted upon change difficulty form submission
   - [ ] to-do: update the ghost's conditional text for new difficulties (e.g. alert for invalid numbers)
 

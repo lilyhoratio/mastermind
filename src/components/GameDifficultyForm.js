@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
-import { useAccordionToggle } from "react-bootstrap/AccordionToggle";
 
 function GameDifficultyForm({ setDifficulty, setTemporaryStyle }) {
   const [maxDigitInCode, setMaxDigitInCode] = useState(7);
   const [totalDigitsInCode, setTotalDigitsInCode] = useState(4);
-  // const [isCollapsed, setIsCollapsed] = useState(true);
 
   const handleChangeMaxDigit = e => {
     setMaxDigitInCode(e.target.value);
@@ -20,7 +18,8 @@ function GameDifficultyForm({ setDifficulty, setTemporaryStyle }) {
     setDifficulty({ maxDigitInCode, totalDigitsInCode });
 
     // hacky way to highlight the updated difficulty states after form submission
-    setTemporaryStyle("2px dotted red");
+    setTemporaryStyle("2px dotted yellow");
+
     setTimeout(() => {
       setTemporaryStyle("");
     }, 2000);

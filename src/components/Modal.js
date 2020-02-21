@@ -17,11 +17,7 @@ function Modal({ isGameOver, isGameWon, code, resetGame }) {
           <div>( ͡° ʖ̯ ͡°) ┏༼ ◉╭╮◉༽┓ ( ⚈̥̥̥̥̥́⌢⚈̥̥̥̥̥̀) </div>
         </div>
       )}
-      <div
-        className="generate-number-button"
-        // onClick={() => window.location.reload(false)}
-        onClick={resetGame}
-      >
+      <div className="generate-number-button" onClick={resetGame}>
         Generate new random number
       </div>
     </div>
