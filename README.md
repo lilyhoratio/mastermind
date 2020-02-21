@@ -28,7 +28,7 @@ To win, the player must guess the right combinations within 10 attempts.
 ## Steps to run locally
 
 1. `git clone https://github.com/lilyhoratio/mastermind.git`
-2. `cd mastermind-lily`
+2. `cd mastermind`
 3. `yarn` to install dependencies
 4. `yarn start` to launch React app
 5. `yarn test` to run tests
