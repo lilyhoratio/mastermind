@@ -62,6 +62,13 @@ Extra features:
 
 ![Error-handling](error-handling.gif)
 
+- [x] Ability to update game difficulty by changing the following (in progress!):
+  - [x] the number of total tries allowed
+  - [x] the max digit in the code (possible digits span from 0-5 to 0-7)
+  - [x] the total number of digits in the code
+  - [x] affected state is highlighted in momentarily highlighted upon change difficulty form submission
+  - [ ] to-do: update the ghost's conditional text for new difficulties (e.g. alert for invalid numbers)
+
 ## Application Structure
 
 ![Application-Structure](images/application_structure.png)

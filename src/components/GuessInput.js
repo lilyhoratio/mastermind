@@ -46,7 +46,16 @@ function PlayerGuessInput({
       <>
         <form onSubmit={handleSubmit}>
           <label>
-            Enter 4 digits (0-
+            Enter{" "}
+            <span
+              style={{
+                border: `${temporaryStyle}`
+              }}
+              className="max-digit-text"
+            >
+              {difficulty.totalDigitsInCode}
+            </span>{" "}
+            digits (0-
             <span
               style={{
                 border: `${temporaryStyle}`
