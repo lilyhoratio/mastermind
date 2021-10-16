@@ -9,10 +9,6 @@ The game is [deployed](https://mastermind-lily.netlify.com/) on Netlify, but I r
 - [Overview](#overview)
 - [Steps to run locally](#steps-to-run-locally)
 - [Features](#features)
-- [Application Structure](#application-structure)
-- [Code Refactoring Highlights](#Code-refactoring-highlights)
-- [Unit Tests](#unit-tests)
-- [Future Improvements](#future-improvements)
 - [Tech stack](#tech-stack)
 
 ## Overview
