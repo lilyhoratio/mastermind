@@ -65,6 +65,10 @@ Extra features:
   - [x] the total number of digits in the code --> recalls API with updated params
   - [x] affected state is highlighted in momentarily highlighted upon change difficulty form submission
   - [ ] to-do: update the ghost's conditional text for new difficulties (e.g. alert for invalid numbers)
+     
+## Other silly things
+YOU LOST SCREEN:
+<img width="958" alt="Screenshot 2025-02-05 at 11 18 36 AM" src="https://github.com/user-attachments/assets/737ef9c2-1fca-4860-80e9-75378b3c804c" />
 
 ## Tech Stack
 
